@@ -1,0 +1,19 @@
+BODY
+{
+}
+TD
+{
+    FONT-WEIGHT: bolder;
+    COLOR: royalblue
+}
+A:hover
+{
+    COLOR: white;
+    BACKGROUND-COLOR: darkblue;
+    TEXT-DECORATION: none
+}
+A
+{
+    COLOR: orange;
+    TEXT-DECORATION: none
+}

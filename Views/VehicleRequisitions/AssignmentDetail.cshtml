@@ -1,0 +1,156 @@
+﻿@model RowVehiclePoolMVC.ViewModels.AssignmentDetailVM
+
+@{
+    ViewData["Title"] = "AssignmentDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AssignmentDetail</h1>
+
+<div class="container-fluid">
+    <div class="row row-height">
+        <div class="col col-5 left">
+            <h4>VehicleRequisition</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.VehReqDate)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.VehReqDate)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.Requestor)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.Requestor)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.VehType)
+                    <select asp-for="@Model.VehicleRequisition.VehType" asp-items="ViewBag.VehicleTypes">
+                    </select>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.VehType)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.Destination)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.Destination)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.Duties)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.Duties)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.NoInParty)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.NoInParty)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqDivision)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqDivision)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqSectionId)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqSectionId)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqBudget)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqBudget)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqFunction)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqFunction)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqJobNo)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqJobNo)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqFap)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqFap)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqComments)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqComments)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqDepartDate)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqDepartDate)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.ReqReturnDate)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.ReqReturnDate)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.Userid)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.Userid)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.VehReqStatus)
+                    <select asp-for="@Model.VehicleRequisition.VehReqStatus" asp-items="ViewBag.RequisitionStatuses"></select>
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.VehReqStatus)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.NotificationDivHead)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.NotificationDivHead)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.NotificationMan)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.NotificationMan)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.VehicleRequisition.EmailAddress)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.VehicleRequisition.EmailAddress)
+                </dd>
+            </dl>
+            <div>
+                @if(Model.VehicleRequisition.VehReqStatus == "A")
+                {
+                    <a asp-action="Edit" asp-controller="VehicleAssignments" asp-route-id="@Model.VehicleRequisition.VehReqNo" >Edit</a>
+                }
+                else if(Model.VehicleRequisition.VehReqStatus == "P")
+                {
+                    <input type="submit" value="submit">
+                }
+                @*<a asp-action="Index">Back to List</a>*@
+            </div>
+        </div>
+        <div class="col col-7 right">
+            <partial name="_weekly" model="@Model.VehicleWeek" />
+        </div>
+    </div>
+</div>

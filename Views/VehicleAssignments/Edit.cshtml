@@ -1,0 +1,58 @@
+﻿@model VehicleAssignmentVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>VehicleAssignment</h4>
+<hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 border border-primary mb-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.VehicleAssignment.VehReqNo" />
+                <input type="hidden" asp-for="@Model.VehicleAssignment.AssignNo" />
+                <div class="form-group">
+                    <label asp-for="@Model.VehicleAssignment.AssignTagNo" class="control-label"></label>
+                    <input asp-for="@Model.VehicleAssignment.AssignTagNo" class="form-control" />
+                    <span asp-validation-for="@Model.VehicleAssignment.AssignTagNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.VehicleAssignment.AssignDepartDate" class="control-label"></label>
+                    <input asp-for="@Model.VehicleAssignment.AssignDepartDate" class="form-control" />
+                    <span asp-validation-for="@Model.VehicleAssignment.AssignDepartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.VehicleAssignment.AssignReturnDate" class="control-label"></label>
+                    <input asp-for="@Model.VehicleAssignment.AssignReturnDate" class="form-control" />
+                    <span asp-validation-for="@Model.VehicleAssignment.AssignReturnDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.VehicleAssignment.Comments" class="control-label"></label>
+                    <input asp-for="@Model.VehicleAssignment.Comments" class="form-control" />
+                    <span asp-validation-for="@Model.VehicleAssignment.Comments" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col col-12 left">
+                <partial name="_weekly" model="@Model.VehicleWeek" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

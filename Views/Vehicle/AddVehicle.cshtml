@@ -1,0 +1,166 @@
+﻿@model AddVehicleVM
+@{
+    ViewData["Title"] = "Search Assignments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var showVehicles = true;
+}
+<h4>Vehicle Search</h4>
+<hr />
+@if (Model != null && Model.searchSuccessful)
+{
+    <form class="container" asp-action="AddVehicle" id="f1">
+        <div class="table">
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.TagNumber"></label>
+                <input readonly class="col col-4" asp-for="@Model.TagNumber" />
+            </div>
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.VehYear"></label>
+                <input readonly class="col col-4" asp-for="@Model.VehYear"/>
+            </div>
+
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.Make"></label>
+                <input readonly class="col col-4" asp-for="@Model.Make"/>
+            </div>
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.Model"></label>
+                <input readonly class="col col-4" asp-for="@Model.Model"/>
+            </div>
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.Color"></label>
+                <input class="col col-4" asp-for="@Model.Color"/>
+                <span class="col-8 text-danger" asp-validation-for="@Model.Color"></span>
+            </div>
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.VehicleType"></label>
+                <select class="col col-4"asp-for="@Model.VehicleType" asp-items="@ViewBag.VehicleTypes"></select>
+                <span class="col-8 text-danger" asp-validation-for="@Model.VehicleType"></span>
+            </div>
+            <div class="row">
+                <label class="col col-4" asp-for="@Model.OwnerBudget"></label>
+                <select class="col col-4" asp-for="@Model.OwnerBudget" asp-items="@ViewBag.Budgets"></select>
+                <span class="col-8 text-danger" asp-validation-for="@Model.OwnerBudget"></span>
+            </div>
+            <div class="row">
+                <label class="col col-4">Out of Service Date</label>
+                <select class="col col-1" name="ServiceMonth" id="ServiceMonth" title="omo" asp-for="ServiceMonth" onchange="updatebox()"></select>
+                <select class="col col-1" name="ServiceDay" id="ServiceDay" title="ody" asp-for="ServiceDay"></select>
+                <select class="col col-1" name="ServiceYear" id="ServiceYear" asp-for="ServiceYear" onchange="updatebox()"></select>
+            </div>
+        </div>
+        <button type="submit" id="AddVehicle" style="align-content: center">Add</button>
+        <a asp-action="AddVehicle">Back To List</a>
+    </form>
+
+}
+else 
+{
+    <form class="container" asp-action="GetVehicleInfo" method="post">
+        <div class="table">
+            <div class="row">
+                <label class="col col-3" asp-for="@Model.TagNumber"></label>
+                <input class="col col-4" asp-for="@Model.TagNumber" />
+                <span class="col-8 text-danger" asp-validation-for="@Model.TagNumber"></span>
+            </div>
+        </div>
+        <button type="submit" class="btn-link" style="align-content: center">Get Vehicle Info</button>
+    </form>
+    <button type="button" id="toggleShowAllVehicles" class="btn-link" style="align-content: center">Show All Vehicles</button>
+    <div>
+        <div id="vehicleListLocation" class="datagrid"></div>
+    </div>
+}
+@section scripts{
+    <script language="javascript" src="~/JS/dayinmonth.js"></script>
+    <script>
+        function updatebox() {
+            var formObj = document.getElementById("f1");
+            fillday(formObj, f1.ServiceMonth.value, f1.ServiceDay.value, f1.ServiceYear.value);
+        }
+
+        function getDaysInMonth( mnth, yr) {
+            var retdays = 31;
+            if (mnth === 4 || mnth === 6 || mnth === 9 || mnth === 11){
+                retdays = 30;
+            } else if (mnth === 2){
+                if ((yr % 100) === 0 || (yr % 4) > 0){
+                    retdays = 28;
+                }
+                else{
+                    retdays = 29;
+                }
+            }
+
+            return retdays;
+        };
+
+        function fillmonth(objform, mnt) {
+            for (var j = 0; j < 12; j++) {
+                objform.ServiceMonth.options[j] = new Option(j + 1, j + 1);
+            }
+            f1.ServiceMonth.options[mnt - 1].selected = true;
+        };
+
+        function fillday(objform, mnt, day, yr) {
+            var daysInMonth = getDaysInMonth(Number(mnt), Number(yr));
+            //for (j = 0; j < daysInMonth j++)
+            //    objform.day.options[j] = null;
+            document.getElementById("ServiceDay").innerHTML = "";
+
+            for (j = 0; j < daysInMonth; j++)
+                objform.ServiceDay.options[j] = new Option(j + 1, j + 1);
+            if (objform.ServiceDay.options[day - 1] != null) {
+                objform.ServiceDay.options[day - 1].selected = true;
+            }
+
+        };
+
+        function fillyear(objform, yr) {
+            var i = 0;
+            var date = new Date();
+            var begyr = date.getFullYear() - 11;
+            var endyr = date.getFullYear() + 1;
+            for (j = begyr; j < endyr; j++) {
+                objform.ServiceYear.options[i] = new Option(j + 1, j + 1);
+                if (j == yr) {
+                    objform.ServiceYear.options[i - 1].selected = true;
+                }
+
+                i++;
+            }
+            if (endyr == yr) {
+                objform.ServiceYear.options[i - 1].selected = true;
+            }
+        };
+
+        (function ($) {
+            $("#toggleShowAllVehicles").click(function (e) {
+                if (document.getElementById("vehicleListLocation").innerHTML.trim() === "") {
+                    $("#vehicleListLocation").load("/Vehicle/ShowAllVehicles")
+                    document.getElementById("toggleShowAllVehicles").textContent = "Hide Vehicles"
+                }
+                else {
+                    document.getElementById("vehicleListLocation").innerHTML = "";
+                    document.getElementById("toggleShowAllVehicles").textContent = "Show All Vehicles"
+                }
+            });
+        @{
+            var fillMonthParm = Model.ServiceMonth != 0 ? Model.ServiceMonth : DateTime.Now.Month;
+            var fillDayParms = Model.ServiceDay != 0 ? Model.ServiceMonth + "," + Model.ServiceDay + "," + Model.ServiceYear : DateTime.Now.Month + "," + DateTime.Now.Day + "," + DateTime.Now.Year;
+            var fillYearParm = Model.ServiceYear != 0 ? Model.ServiceYear : DateTime.Now.Year;
+        }
+
+            var formObj = document.getElementById("f1")
+            if(formObj){
+                fillmonth(formObj, @fillMonthParm);
+                fillday(formObj, @fillDayParms);
+                fillyear(formObj, @fillYearParm);
+            }
+
+
+        })(jQuery);
+
+    </script>
+}
+

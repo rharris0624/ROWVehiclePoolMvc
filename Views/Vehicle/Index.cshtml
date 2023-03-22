@@ -1,0 +1,79 @@
+﻿@model IEnumerable<RowVehiclePoolMVC.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Deactivate Vehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update Vehicle</h1>
+
+<table class="table table-striped table-bordered" >
+    <thead>
+        <tr">
+            <th >
+                @Html.DisplayNameFor(model => model.VehYear)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.VehicleType)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.OwnerBudget)
+            </th>
+            <th class="col col-2">
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.OutOfServiceBegin)
+            </th>
+            <th class="col col-2"></th>
+        </tr>
+    </thead>
+@foreach (var item in Model) {
+    <tbody>
+        <tr>
+            <td >
+                @Html.DisplayFor(modelItem => item.VehYear)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.VehicleType)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.OwnerBudget)
+            </td>
+            <td class="col col-2">
+                @Html.DisplayFor(modelItem => item.Mileage)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.OutOfServiceBegin)
+            </td>
+            <td>
+                <a href=@Url.Action("Edit")?tagNumber=@item.TagNumber>Edit</a>
+            </td>
+        </tr>
+    </tbody>
+}
+</table>

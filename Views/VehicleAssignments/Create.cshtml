@@ -1,0 +1,59 @@
+﻿@model RowVehiclePoolMVC.Models.VehicleAssignment
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>VehicleAssignment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VehReqNo" class="control-label"></label>
+                <input asp-for="VehReqNo" class="form-control" />
+                <span asp-validation-for="VehReqNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignNo" class="control-label"></label>
+                <input asp-for="AssignNo" class="form-control" />
+                <span asp-validation-for="AssignNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignTagNo" class="control-label"></label>
+                <input asp-for="AssignTagNo" class="form-control" />
+                <span asp-validation-for="AssignTagNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignDepartDate" class="control-label"></label>
+                <input asp-for="AssignDepartDate" class="form-control" />
+                <span asp-validation-for="AssignDepartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignReturnDate" class="control-label"></label>
+                <input asp-for="AssignReturnDate" class="form-control" />
+                <span asp-validation-for="AssignReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

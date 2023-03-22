@@ -1,0 +1,108 @@
+﻿@model RowVehiclePoolMVC.ViewModels.VehicleRequestVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>VehicleRequisition</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8 border border-dark" >
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="VehReqNo" />
+            <div class="form-group form-row">
+                <label asp-for="RequestFirstName" class="control-label col"></label>
+                <input asp-for="RequestFirstName" class="form-control col" />
+                <span asp-validation-for="RequestFirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group form-row">
+                <label asp-for="RequestLastName" class="control-label col"></label>
+                <input asp-for="RequestLastName" class="form-control col" />
+                <span asp-validation-for="RequestLastName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <label asp-for="VehType" class="control-label col"></label>
+                <select asp-for="VehType" asp-items=ViewBag.VehicleTypes class="form-control col"></select>
+                <span asp-validation-for="VehType" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="Destination" class="control-label col"></label>
+            <input asp-for="Destination" class="form-control col" />
+            <span asp-validation-for="Destination" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="Duties" class="control-label col"></label>
+            <input asp-for="Duties" class="form-control col" />
+            <span asp-validation-for="Duties" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="NoInParty" class="control-label col"></label>
+            <input asp-for="NoInParty" class="form-control col" />
+            <span asp-validation-for="NoInParty" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqBudget" class="control-label col"></label>
+            <input asp-for="ReqBudget" class="form-control col" />
+            <span asp-validation-for="ReqBudget" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqFunction" class="control-label col"></label>
+            <input asp-for="ReqFunction" class="form-control col" />
+            <span asp-validation-for="ReqFunction" class="text-danger"></span>
+            </div>
+            <div class="form-group col">
+            <label asp-for="ReqJobNo" class="control-label col"></label>
+            <input asp-for="ReqJobNo" class="form-control col" />
+            <span asp-validation-for="ReqJobNo" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqFap" class="control-label col"></label>
+            <input asp-for="ReqFap" class="form-control col" />
+            <span asp-validation-for="ReqFap" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqComments" class="control-label col"></label>
+            <input asp-for="ReqComments" class="form-control col" />
+            <span asp-validation-for="ReqComments" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqDepartDate" class="control-label col-4"></label>
+            <input asp-for="ReqDepartDate" class="form-control col col-4" />
+            <select asp-for="ReqDepartTime" asp-items="@(new SelectList(Model.DepartTimeList,nameof(ItemList.Value),nameof(ItemList.Text)))" class="form-control col col-3"> </select>
+            <span asp-validation-for="ReqDepartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="ReqReturnDate" class="control-label col col-4"></label>
+            <input asp-for="ReqReturnDate" class="form-control col col-4" />
+            <select asp-for="ReqReturnTime" 
+            class="form-control col col-3" asp-items="@(new SelectList(Model.ReturnTimeList,nameof(ItemList.Value),nameof(ItemList.Text)))"></select>
+            <span asp-validation-for="ReqReturnDate" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="VehReqStatus" class="control-label col"></label>
+            <select asp-for="VehReqStatus" asp-items=ViewBag.RequisitionStatuses class="form-control col"></select>
+            <span asp-validation-for="VehReqStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <label asp-for="EmailAddress" class="control-label col"></label>
+            <input asp-for="EmailAddress" class="form-control col" />
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+            <input type="submit" value="Save" asp-action="Edit" asp-controller="VehicleRequisitions" class="btn btn-primary" formmethod="post" asp-route-id="@Model.VehReqNo"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ViewAllRequisitions">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

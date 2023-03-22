@@ -1,0 +1,129 @@
+﻿@model IEnumerable<FunctionSearch>
+<!--Modal Body Start-->
+<div class="modal-content">
+    <!--Modal Header Start-->
+    <div class="modal-header">
+        <!--Modal Header Start-->
+        <h4 class="modal-title">Select Job\Function</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+        </button>
+        <button type="button" class="btn btn-primary save-button" data-save="modal">Post</button>
+    </div>
+    <!--Modal Header End-->
+
+    @Html.AntiForgeryToken()
+    <div class="model-body">
+        <form>
+            <div class="tab table">
+                <div class="row">
+                    <div class="col col-4 form-group">
+                        <label for="Job">Job:</label>
+                        <input class="form-control" type="text" for="Job" id="Job" />
+                    </div>
+                    <div class="form-group col col-3">
+                        <button class="form-control" type="button" value="Search" id="searchButton">Search</button>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col col-3">
+                        <label for="JobSelected">Job: </label>
+                        <input type="text" readonly="readonly" id="JobSelected">
+                    </div>
+                    <div class="col col-3">
+                        <label for="FunctionSelected">Function: </label>
+                        <input type="text" readonly="readonly" id="FunctionSelected">
+                    </div>
+                    <div class="col col-3">
+                        <label for="FAPSelected">FAP:</label>
+                        <input type="text" readonly="readonly" id="FAPSelected">
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div>
+            <div id="listTable"class="tab tab-content tab-striped" cellpadding="5">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">Job Number</></div>
+                    <div class="col">Function</div>
+                    <div class="col">F.A.P. Number</div>
+                </div>
+                @{
+                    var x = 0;
+                }
+                    @foreach (var item in Model)
+                    {
+                        <div class="row rowBody" id="allotDetails_@x" data-index=@x>
+                            <div class="col"><input id="selectButton_@x" name="selectButton" type="button" class="btn btn-job form-control" index=@x value="Select"></div>
+                            <div class="col"><span id="Job_@x">@item.Job.Trim()</span></div>
+                            <div class="col"><span id="Func_@x">@item.Function.Trim()</span></div>
+                            <div class="col"><span id="FAP_@x">@item.FAP.Trim()</span></div>
+                        </div>
+                        x = x + 1;
+                    }
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" id="btnPost" class="btn btn-primary save-button" data-save="modal">Post</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+     $(".save-button").click(function (event) {
+        $("#ReqJobNo").val($("#JobSelected").val());
+        $("#ReqFunction").val($("#FunctionSelected").val());
+        $("#ReqFap").val($("#FAPSelected").val());
+        $('#modal-select-job-function').modal("hide");
+    });
+
+    $(".btn-job").click(function (event) {
+        event.stopPropagation();
+        var index = $(event.target).attr("index");
+        $("#JobSelected").val($("#Job_" + index).text());
+        $("#FunctionSelected").val($("#Func_" + index).text());
+        $("#FAPSelected").val($("#FAP_" + index).text());
+        var functionSearch = { job: job, function: func, fap: fap };
+    });
+
+    $("#searchButton").click(function () {
+        var jobNum = $('#Job').val();
+        $.ajax({
+            url: '@Url.Action("SearchAllotmentsByJob","Allotment")?jobNo=' + jobNum,
+            cache: false,
+            async: true,
+            type: "GET",
+            success: function (data) {
+                $(".rowBody").remove();
+                for (var x = 0; x < data.length; x++) {
+                    $("#listTable").append('<div class="row rowBody" id="allotDetails_' + x + '">');
+                    $("#allotDetails_"+x).append('<div class="col"><input id="selectButton_'+x+'" name="selectButton" type="button" class="btn btn-job" index='+x+' value="Select"></div>');
+                    $("#allotDetails_"+x).append('<div class="col"><span id="Job_'+x+'">' + data[x].job.trim()      + '</span></div>');
+                    $("#allotDetails_"+x).append('<div class="col"><span id="Func_'+x+'" >' + data[x].function.trim() + '</span></div>');
+                    $("#allotDetails_" + x).append('<div class="col"><span id="FAP_' + x + '" >' + data[x].fap.trim() + '</span></div>');
+                    $("#jobListBody").append('</div>');
+                };
+
+                $(".btn-job").click(function (event) {
+                    event.stopPropagation();
+                    // alert("id = " + event.target.id);
+                    var index = $(event.target).attr("index");
+                    $("#JobSelected").val($("#Job_" + index).text());
+                    $("#FunctionSelected").val($("#Func_" + index).text());
+                    $("#FAPSelected").val($("#FAP_" + index).text());
+                    var functionSearch = { job: job, function: func, fap: fap };
+                });
+           },
+            error: function (response) {
+                alert('error : ' + response);
+            }
+        });
+    });
+});
+
+</script>

@@ -1,0 +1,128 @@
+﻿@model VehicleRequestVM
+
+@{
+    ViewData["Title"] = "Request Pool Vehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Request Pool Vehicle</h1>
+
+<h4>Vehicle Requisition</h4>
+<hr />
+<div class="col" rowspan="8">
+    <partial name="_JobFunctionModal" />
+</div>
+<form class="container" asp-action="RequestPoolVehicle" id="RequestPoolForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row" onchange="formatEmailAddress()">
+        <label class="col col-3 control-label" asp-for="RequestFirstName" ></label>
+        <input class="col col-4 form-control" asp-for="RequestFirstName" />
+        <span  class="col col-12 text-danger" asp-validation-for="RequestFirstName"></span>
+    </div>
+    <div class="row" onchange="formatEmailAddress()">
+        <label class="col col-3 control-label" asp-for="RequestLastName" ></label>
+        <input class="col col-4 form-control" asp-for="RequestLastName" />
+        <span  class="col col-8 text-danger" asp-validation-for="RequestLastName"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="EmailAddress" ></label>
+        <input class="col col-4 form-control" asp-for="EmailAddress" />
+        <span  class="col col-8 text-danger" asp-validation-for="EmailAddress"></span>
+    </div>
+    <div class="row">
+        <label  class="col col-3 control-label" asp-for="VehType" ></label>
+        <Select class="col col-4 form-control" asp-for="VehType" asp-items="new SelectList(ViewBag.VehicleType)"></Select>
+        <span   class="col col-8 text-danger" asp-validation-for="VehType"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="Destination"></label>
+        <input class="col col-4 form-control" asp-for="Destination"/>
+        <span  class="col col-8 text-danger" asp-validation-for="Destination"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="Duties" ></label>
+        <input class="col col-4 form-control" asp-for="Duties" />
+        <span  class="col col-8 text-danger" asp-validation-for="Duties"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="NoInParty" ></label>
+        <input class="col col-4 form-control" asp-for="NoInParty" />
+        <span  class="col col-8 text-danger" asp-validation-for="NoInParty"></span>
+    </div>
+    <div class="row">
+        <label  class="col col-3 control-label" asp-for="ReqBudget" ></label>
+        <select class="col col-4 form-control form-select" asp-for="ReqBudget" asp-items="new SelectList(ViewBag.Budget)"></select>
+        <span   class="col col-8 text-danger" asp-validation-for="ReqBudget"></span>
+    </div>
+    <div class="row">
+        <label  class="col col-3 control-label" asp-for="ReqJobNo" ></label>
+        <input  class="col col-4 form-control" asp-for="ReqJobNo" />
+        <button class="btn btn-primary popup" data-url='@Url.Action("SelectJobFunction")' data-toggle="modal" data-target="#modal-select-job-function" id="SearchAllotments">Search Jobs/Functions<i class="fa fa-plus"></i></button>
+        <span   class="col-8 text-danger" asp-validation-for="ReqJobNo"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="ReqFunction" ></label>
+        <input class="col col-4 form-control" asp-for="ReqFunction" readonly />
+        <span  class="col col-8 text-danger" asp-validation-for="ReqFunction"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="ReqFap" ></label>
+        <input class="col col-4 form-control" asp-for="ReqFap" readonly />
+        <span  class="col col-8 text-danger" asp-validation-for="ReqFap"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="ReqComments" ></label>
+        <input class="col col-4 form-control" asp-for="ReqComments" />
+        <span  class="col col-8 text-danger" asp-validation-for="ReqComments"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="ReqDepartDate"></label>
+        <input class="col col-4 form-control" asp-for="ReqDepartDate" />
+        <label class="col col-1" asp-for="ReqDepartTime"></label>
+        <select class="col col-2 form-control form-select" asp-for="ReqDepartTime" asp-items="ViewBag.TimeOfDayVals"></select>
+        <span class="col col-8 text-danger" asp-validation-for="ReqDepartDate"></span>
+    </div>
+    <div class="row">
+        <label class="col col-3 control-label" asp-for="ReqReturnDate"></label>
+        <input class="col col-4 form-control validReturnDate" asp-for="ReqReturnDate" />
+        <label class="col col-1" asp-for="ReqReturnTime"></label>
+        <select class="col col-2 form-control form-select" asp-for="ReqReturnTime" asp-items="ViewBag.TimeOfDayVals" ></select>
+        <span class="col-8 text-danger" asp-validation-for="ReqReturnDate"></span>
+    </div>
+    <div>
+    </div>
+    <div class="row">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(document).ready(function (){
+            //$("#RequestPoolForm").submit(function () {
+            //    //validateForm()
+            //    alert("in submit");
+            //})
+
+            $.validator.addMethod("validReturnDate", function (value, element) {
+                var date1 = new Date(value.substring(0,10) + "T" + $("#ReqReturnTime").val());
+                var date2 = new Date($("#ReqDepartDate").val().substring(0,10) + "T" + $("#ReqDepartTime").val());
+                return date1.getTime() > date2.getTime();
+            }, "Please enter a valid return date");
+            /*
+            $("#ReqReturnTime").change(function (event) {
+                var returnTime = event.target.value;
+                var departTime = document.getElementById("ReqDepartTime");
+                if (departTime > returnTime) {
+                    alert("Invalid Return Time value");
+                }
+            });
+            */
+        });
+    </script>
+}

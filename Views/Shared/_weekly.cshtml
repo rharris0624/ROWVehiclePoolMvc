@@ -1,0 +1,112 @@
+﻿@model VehicleWeekVM
+
+<table border=1 cellspacing=0 cellpadding=0 bgcolor=#ffffff align=center width="80%">
+  <tr>
+    <td style="background-color: #555555">&nbsp;</td>
+	<td style="background-color: #555555" align="center" colspan="7">
+	<table width=100% border=0 cellspacing=0 cellpadding=2>
+	  <tr>
+        @{
+            string GetWeekTitle(DateTime uDate)
+            {
+                var weekDay = uDate.DayOfWeek;
+                var returnVal = "Week of " + uDate.AddDays(1-(int)weekDay).ToLongDateString();
+                return returnVal;
+            }
+
+            var begining = DateTime.Now.Year - 11;
+            var ending = DateTime.Now.Year + 2;
+                        if (begining == Model.UsageDate.Year)
+            {
+                <td align="right"><font color =#555555>next week &lt;&lt; last week</font></td>
+                            <td align="center" colspan="2"><font color=#ffffff><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                            <td align="left"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt</b></a></td>
+            }
+            else if(ending == Model.UsageDate.Year)
+            {
+                            <td align="right"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt</b></a></td>
+                            <td align="center"><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                <td align=left><font color ="#555555">next week &gt;&gt;</font></td>
+            }
+            else
+            {
+                            <td align="right"><font color="#555555"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(-7) class="weekSwitch"><b>&lt;&lt; last week</b></a></font></td>
+                            <td align="center"><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                            <td align="left"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt;</b></a></td>
+            }
+      }
+                </tr>
+            </table>
+            <tr>
+                @{
+                    {
+                <td style="background-color: #c0c0c0"></td>
+                    }
+                    var k = (int)Model.UsageDate.DayOfWeek;
+                for(int i = 1; i < 8; i++)
+                {
+                    if (i == k)
+                    {
+                    <td style="background-color: #a0a0a0" align="center"><font color="#000099">@Model.UsageDate.AddDays(i - k).ToShortDateString()</font><br><b><a asp-action="weekly" asp-route-sDate=@Model.UsageDate.AddDays(i - k).Date>@Model.UsageDate.AddDays(i - k).DayOfWeek.ToString()</a></b></td>
+                            ;
+                    }
+                    else
+                    {
+                    <td style="background-color: #c0c0c0" align="center">@Model.UsageDate.AddDays(i - k).ToShortDateString()<br><b><a asp-action="weekly" asp-route-sDate=@Model.UsageDate.AddDays(i - k).Date>@Model.UsageDate.AddDays(i - k).DayOfWeek.ToString()</a></b></td>
+                            ;
+                    }
+                }
+          }
+      </tr>
+            @{
+                var dayOfWeek = Model.UsageDate.DayOfWeek;
+                var firstDayOfWeek = Model.UsageDate.AddDays(-(int)dayOfWeek + 1);
+                var lastDayOfWeek = firstDayOfWeek.AddDays(6);
+                IEnumerable<DateTime> daysOfTheWeek = Enumerable.Range(0, 1 + lastDayOfWeek.Subtract(firstDayOfWeek).Days).Select(offset => firstDayOfWeek.AddDays(offset)).ToArray();
+                string[] vehicleTypes = { "Commission", "Car", "Pickup" };
+                foreach (var vehicleType in vehicleTypes)
+                {
+                    var vCnt = Model.Vehicles.Where(c => c.VehicleType.Equals(vehicleType)).Count();
+                    if(vCnt > 0)
+                    {
+                        <tr><td colspan=100 style="background-color: LightGrey" valign="baseline"><h4>@vehicleType</h4></td></tr>
+                    }
+                    foreach (var vehicle in Model.Vehicles.Where(c => c.VehicleType == vehicleType))
+                    {
+                <tr style="background-color: #d3d3d3">
+                    <td>
+                                @vehicle.TagNumber <br />
+                                @vehicle.Make<br />
+                                @vehicle.Model<br />
+                                @vehicle.Color<br />
+                    </td>
+                            @{
+                                int dayCtr = 0;
+                                foreach (var day in daysOfTheWeek)
+                                {
+                                    var dayUsageInstances = Model.UsageInstances.Where(c => c.TagNumber.Equals(vehicle.TagNumber) && c.UsageDepartDate.Date <= day.Date && c.UsageReturnDate.Date >= day.Date).ToList();
+                                    string backgroundColor = ++dayCtr > 5 ? "lightgreen" : dayUsageInstances.Count > 0 ? "#c0c0c0" : "lightblue";
+                                    string colorValue = dayCtr > 5 ? "black" : "white";
+                            <td style="background-color: @backgroundColor">
+                                <font color=@colorValue>
+                                            @foreach (var dayUsage in dayUsageInstances)
+                                            {
+                                                var requestor = dayUsage.Requestor;
+                                                if (requestor.ToLower().Contains("out of service"))
+                                                {
+                                            <a style="color: red" asp-action="AssignmentDetail" asp-route-assignNo="@dayUsage.AssignNo">@requestor</a>
+                                                }
+                                                else
+                                                {
+                                            <a style="color: @colorValue" asp-action="AssignmentDetail" asp-route-assignNo="@dayUsage.AssignNo" class="detailAnchor">@requestor</a>
+                                                }
+                                            }
+                                </font>
+                            </td>
+                                }
+                            }
+                </tr>
+                    }
+                }
+            }
+</table>

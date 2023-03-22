@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="container bg-secondary p-lg-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <img src="~/Images/vehiclepool1.jpg" class="img-fluid w-100" alt="Request Vehicle" >
+        </div>
+    </div>
+    <div class="row col-lg-12">
+        <div class="col-6">
+            <div class="col-12">
+                <div class="row">
+                    <a asp-controller="VehicleRequisitions" asp-action="RequestPoolVehicle"
+                       onmouseover="changeImages('vehiclepool_08','@Url.Content("~/Images/vehiclepool_08-over.gif")'); return true;"
+                       onmouseout="changeImages('vehiclepool_08', '@Url.Content("~/Images/vehiclepool_08.gif")'); return true;">
+                        <img src="~/Images/vehiclepool_08.gif" class="flex-lg-fill" alt="Request Pool Vehicle" id="vehiclepool_08">
+                    </a>
+                </div>
+                <div class="row">
+                    <a asp-controller="VehicleRequisitions" asp-action="ViewMyRequisitions"
+                       onmouseover="changeImages('vehiclepool_18','@Url.Content("~/Images/vehiclepool_18-over.gif")'); return true;"
+                       onmouseout="changeImages('vehiclepool_18', '@Url.Content("~/Images/vehiclepool_18.gif")'); return true;">
+                        <img src="~/Images/vehiclepool_18.gif" class="flex-lg-fill" alt="View Your Requisitions" id="vehiclepool_18">
+                    </a>
+                </div>
+                <div class="row">
+                    <a asp-controller="VehicleRequisitions" asp-action="ViewAllRequisitions"
+                       onmouseover="changeImages('vehiclepool_28','@Url.Content("~/Images/vehiclepool_28-over.gif")'); return true;"
+                       onmouseout="changeImages('vehiclepool_28', '@Url.Content("~/Images/vehiclepool_28.gif")'); return true;">
+                        <img src="~/Images/vehiclepool_28.gif" class="flex-lg-fill" alt="Browse All Requisitions" id="vehiclepool_28">
+                    </a>
+                </div>
+                <div class="row">
+                    <a asp-controller="Vehicle" asp-action="Weekly"
+                       onmouseover="changeImages('vehiclepool_38','@Url.Content("~/Images/vehiclepool_38-over.gif")'); return true;"
+                       onmouseout="changeImages('vehiclepool_38', '@Url.Content("~/Images/vehiclepool_38.gif")'); return true;">
+                        <img src="~/Images/vehiclepool_38.gif" class="flex-lg-fill" alt="View Weekly Vehicle Usage" id="vehiclepool_38">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 justify-content-center">
+            <img src="~/Images/VehiclePool.jpg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <a asp-controller="Vehicle" asp-action="AddVehicle" class="p-xl-3"
+               onmouseover="changeImages('vehiclepool_45','@Url.Content("~/Images/vehiclepool_45-over.gif")'); return true;"
+               onmouseout="changeImages('vehiclepool_45', '@Url.Content("~/Images/vehiclepool_45.gif")'); return true;">
+                <img src="~/Images/vehiclepool_45.gif" class="flex-lg-fill" alt="Add Vehicle" id="vehiclepool_45">
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a asp-controller="VehicleRequisitions" asp-action="DeleteVehicle" class="p-xl-3"
+               onmouseover="changeImages('vehiclepool_47','@Url.Content("~/Images/vehiclepool_47-over.gif")'); return true;"
+               onmouseout="changeImages('vehiclepool_47', '@Url.Content("~/Images/vehiclepool_47.gif")'); return true;">
+                <img src="~/Images/vehiclepool_47.gif" class="flex-lg-fill" alt="Delete Vehicle" id="vehiclepool_47">
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a asp-controller="VehicleRequisitions" asp-action="VehicleAssign" class="p-xl-3"
+               onmouseover="changeImages('vehiclepool_49','@Url.Content("~/Images/vehiclepool_49-over.gif")'); return true;"
+               onmouseout="changeImages('vehiclepool_49', '@Url.Content("~/Images/vehiclepool_49.gif")'); return true;">
+                <img src="~/Images/vehiclepool_49.gif" class="flex-lg-fill" alt="View All Requisitions" id="vehiclepool_49">
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a asp-controller="Vehicle" asp-action="Index" class="p-xl-3"
+               onmouseover="changeImages('vehiclepool_51','@Url.Content("~/Images/vehiclepool_51-over.gif")'); return true;"
+               onmouseout="changeImages('vehiclepool_51', '@Url.Content("~/Images/vehiclepool_51.gif")'); return true;">
+                <img src="~/Images/vehiclepool_51.gif" class="flex-lg-fill" alt="Update Vehicle" id="vehiclepool_51">
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a asp-controller="VehicleRequisitions" asp-action="DeactivateVehicle" class="p-xl-3"
+               onmouseover="changeImages('vehiclepool_52','@Url.Content("~/Images/vehiclepool_52-over.gif")'); return true;"
+               onmouseout="changeImages('vehiclepool_52', '@Url.Content("~/Images/vehiclepool_52.gif")'); return true;">
+                <img src="~/Images/vehiclepool_52.gif" class="flex-lg-fill" alt="Deactiveate Vehicle" id="vehiclepool_52">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            preloadImages();
+        });
+        function newImage(arg) {
+            if (document.images) {
+                rslt = new Image();
+                rslt.src = arg;
+                return rslt;
+            }
+        }
+
+        function changeImages() {
+            if (document.images && (preloadFlag == true)) {
+                for (var i = 0; i < changeImages.arguments.length; i += 2) {
+                    $('#'+changeImages.arguments[i])[0].src = changeImages.arguments[i + 1];
+                }
+            }
+        }
+
+        var preloadFlag = true;
+        function preloadImages() {
+            if (document.images) {
+                vehiclepool_08_over = newImage("@Url.Content("~/Images/vehiclepool_08-over.gif")");
+                vehiclepool_18_over = newImage("@Url.Content("~/Images/vehiclepool_18-over.gif")");
+                vehiclepool_28_over = newImage("@Url.Content("~/Images/vehiclepool_28-over.gif")");
+                vehiclepool_38_over = newImage("@Url.Content("~/Images/vehiclepool_38-over.gif")");
+                vehiclepool_45_over = newImage("@Url.Content("~/Images/vehiclepool_45-over.gif")");
+                vehiclepool_47_over = newImage("@Url.Content("~/Images/vehiclepool_47-over.gif")");
+                vehiclepool_49_over = newImage("@Url.Content("~/Images/vehiclepool_49-over.gif")");
+                vehiclepool_51_over = newImage("@Url.Content("~/Images/vehiclepool_51-over.gif")");
+                vehiclepool_52_over = newImage("@Url.Content("~/Images/vehiclepool_52-over.gif")");
+                DeleteReqover = newImage("@Url.Content("~/Images/DeleteReqOver.gif")");
+                preloadFlag = true;
+            }
+        }
+    </script>
+}

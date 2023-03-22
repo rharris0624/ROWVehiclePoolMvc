@@ -1,0 +1,35 @@
+﻿@model AddVehicleVM
+<form asp-action="AddVehicle" method="post" asp-antiforgery="true">
+<div class="table">
+    <div class="row">
+        <div class="col col-4">Tag Number</div>
+        <div class="col col-4">@Model.TagNumber</div>
+    </div>
+    <div class="row">
+        <div class="col col-4">Year</div>
+        <div class="col col-4">@Model.VehYear</div>
+    </div>
+
+    <div class="row">
+        <div class="col col-4">Make</div>
+        <div class="col col-4">@Model.Make</div>
+    </div>
+    <div class="row">
+        <div class="col col-4">Model</div>
+        <div class="col col-4">@Model.Model</div>
+    </div>
+    <div class="row">
+        <label class="col col-4" asp-for="@Model.Color"></label>
+        <input class="col col-4" asp-for="@Model.Color"/>
+    </div>
+    <div class="row">
+        <label class="col col-4" asp-for="@Model.VehicleType"></label>
+        <select class="col col-4"asp-for="@Model.VehicleType" asp-items="@ViewBag.VehicleTypes"></select>
+    </div>
+    <div class="row">
+        <cache class="col col-4" asp-for="@Model.OwnerBudget"></cache>
+        <select class="col col-4" asp-for="@Model.OwnerBudget" asp-items="@ViewBag.Budgets"></select>
+    </div>
+</div>
+</form>
+

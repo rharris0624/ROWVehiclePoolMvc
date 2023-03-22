@@ -1,0 +1,206 @@
+﻿@model AssignmentSearchVM
+
+@{
+    Layout = "~/views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Search Assignments";
+}
+
+<h1>Assign Pool Vehicle</h1>
+
+<h4>Vehicle Assignment</h4>
+<hr />
+<font color="blue" onmouseover="this._tip='<font>To browse requisitions, click one or more of the check boxes, enter or select your search criteria, and then click the Search button.</font>'"><u>Search Tip</u></font>
+
+<form class="container table-bordered bottom-three" style="background-color: lightblue; width: 550px; align-content:center; border-color: black; empty-cells:show;padding: 1%;padding-right: 2%;margin-bottom: 2%;" asp-action="AssignmentSearch" id="f1" >
+    <div class="row form-group">
+        <input class="col-sm-2 form-control-sm" type="checkbox" asp-for="SearchRequestor" id="requestorcheck"/>
+        <label class="col-sm-5 form-label-sm" asp-for="SearchRequestor" style="text-align:left"></label>
+        <select class="col-sm-5 custom-select-sm" asp-for="Requestor" asp-items="Model.RequestorList"></select>
+    </div>
+    <div class="row form-group">
+        <input class="col-sm-2 form-control-sm" type="checkbox" asp-for="SearchBudget" id="budgetcheck"/>
+        <label class="col-sm-5 form-label-sm" asp-for="SearchBudget" style="text-align:left"></label>
+        <select class="col-sm-5 custom-select-sm" asp-for="ReqBudget" asp-items="Model.BudgetList"></select>
+    </div>
+    <div class="row form-group">
+        <input class="col-sm-2 form-control-sm" type="checkbox" asp-for="SearchStatus" id="statuscheck"/>
+        <label class="col-sm-5 form-label-sm" asp-for="SearchStatus" style="text-align:left"></label>
+        <select class="col-sm-5 custom-select-sm" asp-for="ReqStatus" asp-items="Model.Statuses"></select>
+    </div>
+    <div class="Row form-group">
+        <input class="col-sm-2  form-control-sm" type="checkbox" asp-for="SearchRequisitionDate" id="datecheck"/>
+        <label class="col-sm-5 form-label-sm" asp-for="SearchRequisitionDate" style="text-align:left"></label>
+        <div class="col-sm-10">
+            <select asp-for="FromReqDateMonth" class="custom-select-sm" onchange="updatebox()"></select>
+            <select asp-for="FromReqDateDay" class="custom-select-sm" onchange="selectdate()"></select>
+            <select asp-for="FromReqDateYear" class="custom-select-sm" onchange="updatebox()"></select>
+            &nbsp;&nbsp;-&nbsp;&nbsp;
+            <select asp-for="ToReqDateMonth" class="custom-select-sm" onchange="updatebox2()"></select>
+            <select asp-for="ToReqDateDay" class="custom-select-sm" onchange="selectdate()"></select>
+            <select asp-for="ToReqDateYear" class="custom-select-sm" onchange="updatebox2()"></select>
+        </div>
+    </div>
+    <div class="row form-group" >
+        <input class="col-sm-2 form-control-sm" type="checkbox" asp-for="SearchAssignTagNumber" id="tagnumbercheck" />
+        <label class="col-sm-5 form-check-label" asp-for="SearchAssignTagNumber" style="text-align:left; padding: 1%;"></label>
+        <div class="col-sm-5 input">
+            <input class="form-control" type="text" asp-for="AssignTagNumber" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <input class="col-sm-2" type="submit" value="Submit" style="margin-left: 20px"/> 
+    </div>
+</form>
+<div id=vehicleAssignments>
+    <partial name="_vehicleAssignments" for="@Model"/>
+</div>
+<style>
+   .unAvailableVehicle  {
+       background-color: #dddddd;
+   }
+</style>
+@section Scripts{
+    <script>
+
+        function selectrequestor(){
+          document.getElementById("requestorcheck").checked=true;
+        } //requestorcheck
+        function selectbudget(){
+          document.getElementById("budgetcheck").checked=true;
+        }    //budgetcheck
+        function selectstatus(){
+          document.getElementById("statuscheck").checked=true;
+        }    //statuscheck
+        function selectdate(){
+          document.getElementById("datecheck").checked=true;
+        }      //datecheck    <--in Updatebox() and updatebox2()
+        function selecttag() {
+          document.getElementById("tagnumbercheck").checked=true;
+        }       //tagnocheck
+
+        dt = new Date();
+
+        function updatebox2() {
+            fillday2(document.getElementById("ToReqDateMonth").value, document.getElementById("ToReqDateDay").value, document.getElementById("ToReqDateYear").value);
+        }
+
+        function getDaysInMonth(mnth, yr) {
+            var retdays = 31;
+            if (mnth === 4 || mnth === 6 || mnth === 9 || mnth === 11) {
+                retdays = 30;
+            } else if (mnth === 2) {
+                if ((yr % 100) === 0 || (yr % 4) > 0) {
+                    retdays = 28;
+                }
+                else {
+                    retdays = 29;
+                }
+            }
+
+            return retdays;
+        };
+
+        function fillmonth2(mnt) {
+            for (var j = 0; j < 12; j++) {
+                document.getElementById("ToReqDateMonth").options[j] = new Option(j + 1, j + 1);
+            }
+            document.getElementById("ToReqDateMonth").options[mnt - 1].selected = true;
+        };
+
+        function fillday2(mnt, day, yr) {
+            var daysInMonth = getDaysInMonth(Number(mnt), Number(yr));
+            document.getElementById("ToReqDateDay").innerHTML = "";
+
+            for (j = 0; j < daysInMonth; j++)
+                document.getElementById("ToReqDateDay").options[j] = new Option(j + 1, j + 1);
+            if (document.getElementById("ToReqDateDay").options[day - 1] != null) {
+                document.getElementById("ToReqDateDay").options[day - 1].selected = true;
+            }
+
+        };
+
+        function fillyear2(yr) {
+            var i = 0;
+            var date = new Date();
+            var begyr = date.getFullYear() - 11;
+            var endyr = date.getFullYear() + 1;
+            for (j = begyr; j < endyr; j++) {
+                document.getElementById("ToReqDateYear").options[i] = new Option(j + 1, j + 1);
+                if (j == yr) {
+                    document.getElementById("ToReqDateYear").options[i - 1].selected = true;
+                }
+
+                i++;
+            }
+            if (endyr == yr) {
+                document.getElementById("ToReqDateYear").options[i - 1].selected = true;
+            }
+        };
+
+        function updatebox() {
+            fillday(document.getElementById("FromReqDateMonth").value, document.getElementById("FromReqDateDay").value, document.getElementById("FromReqDateYear").value);
+        }
+
+        function fillmonth(mnt) {
+            for (var j = 0; j < 12; j++) {
+                document.getElementById("FromReqDateMonth").options[j] = new Option(j + 1, j + 1);
+            }
+            document.getElementById("FromReqDateMonth").options[mnt - 1].selected = true;
+        };
+
+        function fillday(mnt, day, yr) {
+            var daysInMonth = getDaysInMonth(Number(mnt), Number(yr));
+            document.getElementById("FromReqDateDay").innerHTML = "";
+
+            for (j = 0; j < daysInMonth; j++)
+                document.getElementById("FromReqDateDay").options[j] = new Option(j + 1, j + 1);
+            if (document.getElementById("FromReqDateDay").options[day - 1] != null) {
+                document.getElementById("FromReqDateDay").options[day - 1].selected = true;
+            }
+
+        };
+
+        function fillyear(yr) {
+            var i = 0;
+            var date = new Date();
+            var begyr = date.getFullYear() - 11;
+            var endyr = date.getFullYear() + 1;
+            for (j = begyr; j < endyr; j++) {
+                document.getElementById("FromReqDateYear").options[i] = new Option(j + 1, j + 1);
+                if (j == yr) {
+                    document.getElementById("FromReqDateYear").options[i - 1].selected = true;
+                }
+
+                i++;
+            }
+            if (endyr == yr) {
+                document.getElementById("FromReqDateYear").options[i - 1].selected = true;
+            }
+        };
+
+        (function ($) {
+        @{
+            var fillMonthParm = Model.FromReqDateDay != 0 ? Model.FromReqDateMonth : DateTime.Now.Month;
+            var fillDayParms = Model.FromReqDateDay != 0 ? Model.FromReqDateMonth + "," + Model.FromReqDateDay + "," + Model.FromReqDateYear : DateTime.Now.Month + "," + DateTime.Now.Day + "," + DateTime.Now.Year;
+            var fillYearParm = Model.FromReqDateYear != 0 ? Model.FromReqDateYear : DateTime.Now.Year;
+           
+            var fillMonthParm2 = Model.ToReqDateDay != 0 ? Model.ToReqDateMonth : DateTime.Now.Month;
+            var fillDayParms2 = Model.ToReqDateDay != 0 ? Model.ToReqDateMonth + "," + Model.ToReqDateDay + "," + Model.ToReqDateYear : DateTime.Now.Month + "," + DateTime.Now.Day + "," + DateTime.Now.Year;
+            var fillYearParm2 = Model.ToReqDateYear != 0 ? Model.ToReqDateYear : DateTime.Now.Year;
+        }
+
+            var formObj = document.getElementById("f1");
+            
+            if (formObj) {
+                fillmonth(@fillMonthParm);
+                fillday(@fillDayParms);
+                fillyear(@fillYearParm);
+                fillmonth2(@fillMonthParm2);
+                fillday2(@fillDayParms2);
+                fillyear2(@fillYearParm2);
+            }
+        })(jQuery);
+
+    </script>
+
+}

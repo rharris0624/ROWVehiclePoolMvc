@@ -1,0 +1,174 @@
+﻿@model VehicleRequestVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="container">
+    <div class="container border-dark">
+        <div class="row">
+            <form>
+                <div class="col-md-12 border-secondary">
+                    <div class="row">
+                        <div class="col col-1 form-control">
+                            <input asp-for="@Model.FilterRequestor" type="checkbox"/>
+                        </div>
+                        <div class="col col-2 col-form-label">
+                            <label asp-for="@Model.VehRequestor">Requestor</label>
+                        </div>
+                        <div class="col col-9 form-control">
+                            <select asp-for="@Model.VehRequestor" asp-items="@(new SelectList(ViewBag.Requestors,nameof(ItemList.Value),nameof(ItemList.Text)))"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-1 form-control">
+                            <input asp-for="FilterRequestDate" class="col form-check" type="checkbox" id="filterReqDateFrom"/>
+                        </div>
+                        <div class="col col-2">
+                            <label asp-for="@Model.VehReqDate"></label>
+                        </div>
+                        <div class="col col-8 form-control">
+                            <input asp-for="@Model.ReqFromDate" />
+                            <span>&nbsp;-&nbsp;</span>
+                            <input asp-for="@Model.ReqToDate" />
+                        </div>
+                    </div>
+                    <div class="Row">
+                        <div class="col col-1 form-control">
+                            <input asp-for="@Model.FilterStatus" />
+                        </div>
+                        <div class="col col-2">
+                            <label asp-for="FilterStatus"></label>
+                        </div>
+                        <div class="col col-9 form-control">
+                            <select asp-for="@Model.VehReqStatus" asp-items="@(new SelectList(ViewBag.RequisitionStatuses,nameof(SelectListItem.Value),nameof(SelectListItem.Text)))"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-12">
+                            <button type="submit" asp-action="ViewAllRequisitions" formmethod="post" >Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(model => model.VehReqDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VehRequestor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReqDepartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReqReturnDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Destination)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Duties)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NoInParty)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReqComments)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.VehReqStatus)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AssignedTagNo)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.VehicleRequisitions)
+                            {
+                                <tr>
+                                     <td class="text-center">
+                                        @Html.DisplayFor(modelItem => item.VehReqDate)
+                                    </td>
+                                    <td class="text-left">
+                                        @Html.DisplayFor(modelItem => item.Requestor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReqDepartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReqReturnDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Destination)
+                                    </td>
+                                   <td>
+                                        @Html.DisplayFor(modelItem => item.Duties)
+                                   </td>
+                                   <td>
+                                        @Html.DisplayFor(modelItem => item.NoInParty)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReqComments)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VehReqStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssignedTagNo)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.VehReqNo">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.VehReqNo">Details</a> |
+                                        <a asp-action="Delete" asp-route-id="@item.VehReqNo">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready( function (){
+            function submitSearch() {
+                var requestor = $('#requestor').val();
+                /*var data = "{";
+                if(document.getElementById("filterRequestor").checked){
+                    data = data + " { requestor: " + document.getElementById("requestor").Value + "},";
+                }
+                data = data + "}";*/
+                $.ajax({
+                    url: '@Url.Action("ViewAllRequisitions","VehicleRequisitions")?requestor=' + requestor,
+                    async: true,
+                    type: "POST",
+                    cache: false,
+                    error: function (response) {
+                        alert('error : ' + response);
+                    }
+                });
+            }
+        });
+
+    </script>
+}
