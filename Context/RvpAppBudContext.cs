@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using RowVehiclePoolMVC.Models;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
@@ -11,10 +12,10 @@ namespace RowVehiclePoolMVC.Context
 {
     public partial class RvpAppBudContext : DbContext
     {
+        private IConfiguration Configuration { get; set; }
         public RvpAppBudContext()
         {
         }
-
         public RvpAppBudContext(DbContextOptions<RvpAppBudContext> options)
             : base(options)
         {
@@ -23,14 +24,14 @@ namespace RowVehiclePoolMVC.Context
         public virtual DbSet<PahrMstr> PahrMstr { get; set; }
         public virtual DbSet<T101BudgetInf> T101BudgetInf { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=e290-app-61;database=pahr;Trusted_Connection=yes; MultipleActiveResultSets=true;");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Server=tcp:ardotdbsrv1.database.windows.net;Database=PAHR;User Id=HttpDevWeb;Password=Mh@Llifww@5;MultipleActiveResultSets=true");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,25 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using RowVehiclePoolMVC.Context;
 using RowVehiclePoolMVC.Models;
+using RowVehiclePoolMVC.Utilities;
 using RowVehiclePoolMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace RowVehiclePoolMVC.Controllers
 {
     //[Route("[Controller]")]
     public class VehicleController : Controller
     {
+        private RvpAppBudContext _appBudContext;
+
         public RvpAppContext _context { get; set; }
         public RvpAppEqpContext _eqpContext { get; set; }
 
-        public VehicleController(RvpAppContext context, RvpAppEqpContext eqpContext)
+        public VehicleController(RvpAppContext context, RvpAppEqpContext eqpContext, RvpAppBudContext appBudContext)
         {
             _context = context;
             _eqpContext = eqpContext;
+            _appBudContext = appBudContext;
         }
         public IActionResult Index()
         {
@@ -153,8 +159,48 @@ namespace RowVehiclePoolMVC.Controllers
                 Console.WriteLine("Error - " + ex.Message);
                 throw;
             }
+            var vehicleWeekVM = new VehicleWeekVM(vehicles, usageInstances, dDate, dDate);
+            return PartialView("Weekly", vehicleWeekVM);
+        }
+
+        [HttpGet]
+        public IActionResult WeeklyPartial(String sDate)
+        {
+            DateTime dDate;
+            if (!DateTime.TryParse(sDate, out dDate))
+            {
+                dDate = DateTime.Now;
+            }
+            var dayOfWeek = dDate.DayOfWeek;
+            var firstDayOfWeek = dDate.AddDays(-(int)dayOfWeek + 1);
+            var lastDayOfWeek = firstDayOfWeek.AddDays(6);
+            IList<WeeklyVehicleUsage> weeklyVehicleUsages = new List<WeeklyVehicleUsage>();
+
+            //Create a list of vehicles ordered by type and tag number
+            //Create a list of assignments in the range of the first and last days of the week
+            //populate the view model with the vehicles and assignments
+            var vehicles = _context.Vehicle.Where(c => !c.Status.Equals("i")).OrderBy(c => c.VehicleType).ThenBy(c => c.TagNumber).ToList();
+            IList<UsageInstance> usageInstances = null;
+            try
+            {
+                usageInstances = _context.VehicleAssignment.Join(_context.VehicleRequisition, vAssign => vAssign.VehReqNo, vRequest => vRequest.VehReqNo, (vAssign, vRequest) => new { vAssign, vRequest })
+                .Where(c => c.vAssign.AssignDepartDate.Date >= firstDayOfWeek.Date && c.vAssign.AssignDepartDate.Date <= lastDayOfWeek.Date)
+                .Select(c => new UsageInstance
+                {
+                    Requestor = c.vRequest.Requestor,
+                    TagNumber = c.vAssign.AssignTagNo,
+                    AssignNo = c.vAssign.AssignNo,
+                    UsageDepartDate = c.vAssign.AssignDepartDate,
+                    UsageReturnDate = c.vAssign.AssignReturnDate,
+                }).OrderBy(c => c.TagNumber).ThenBy(c => c.AssignNo).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error - " + ex.Message);
+                throw;
+            }
             var vehicleWeekVM = new VehicleWeekVM(vehicles, usageInstances, dDate);
-            return View(vehicleWeekVM);
+            return PartialView("_weekly", vehicleWeekVM);
         }
 
         [HttpGet]
@@ -163,14 +209,36 @@ namespace RowVehiclePoolMVC.Controllers
                 var vehicles = _context.Vehicle.Select(c => c).OrderBy(c=>c.TagNumber).ToList();
                 return PartialView("_ShowAllVehicles", vehicles);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ShowAvailableVehiclesByType(string vehType, string departDate, string returnDate, int vehReqNo)
+        {
+            var results = _context.Vehicle.Where(c => c.VehicleType == vehType && c.Status.ToLower() == "a" ).ToList();
+            DateTime departDt = DateTime.MinValue;
+            DateTime.TryParse(departDate,out departDt);
+            DateTime returnDt = DateTime.MinValue;
+            DateTime.TryParse(returnDate,out returnDt);
+            var results2 = await _context.VehicleAssignment
+                .Join(_context.VehicleRequisition,f => f.VehReqNo, g => g.VehReqNo,(f,g) => new { f, g }).Join(_context.Vehicle,a => a.f.AssignTagNo, b => b.TagNumber,(a,b) => new {a, b })
+                .Where(c => c.a.g.VehType == vehType && c.a.f.AssignReturnDate >= departDt && c.a.f.AssignDepartDate <= returnDt).Select(c => c.b).Distinct().ToListAsync();
+            var results3 = results.Except(results2, new AvailableVehicleComparer());
+            VehicleSelectionVM vehicleSelectionVM = new VehicleSelectionVM()
+            {
+                VehReqNo = vehReqNo,
+                VehicleType= vehType,
+            };
+            if(results3 != null & results3.Count() > 0)
+            {
+                vehicleSelectionVM.Vehicles = results3.ToList();
+            }
+            return PartialView("_SelectFromAvailableVehicles",vehicleSelectionVM);
+        }
         [HttpPost]
         public IActionResult GetVehicleInfo(AddVehicleVM addVehicleVM)
         {
             IList<SelectListItem> budgetList = new List<SelectListItem>();
-            using (RvpAppBudContext rvpAppBudContext = new RvpAppBudContext())
-            {
-                budgetList = rvpAppBudContext.T101BudgetInf.Where(c => c.PahrBudget.Equals("Y") && c.PayrEndDate == null).Select(c => new SelectListItem { Text = c.Budget, Value = c.Budget }).ToList();
-            };
+                budgetList = _appBudContext.T101BudgetInf.Where(c => c.PahrBudget.Equals("Y") && c.PayrEndDate == null).Select(c => new SelectListItem { Text = c.Budget, Value = c.Budget }).ToList();
+            
             ViewBag.Budgets = budgetList.Prepend(new SelectListItem() { Text = "Select", Value = "" });
 
             var vehicleTypes = new List<SelectListItem>() {

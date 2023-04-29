@@ -1,0 +1,10 @@
+﻿Display Name
+	ROWVehiclePoolMvc
+Tenant Id
+	a8dc8624-ddc6-4c75-9088-5582b4c560e9
+Client Id
+	f161ea69-270f-4df9-8217-c515bec55281
+Domain
+	rharris0624domain.onmicrosoft.com
+Object Id
+	5c95153a-03d4-4e3c-b040-92abbb8bc4b6

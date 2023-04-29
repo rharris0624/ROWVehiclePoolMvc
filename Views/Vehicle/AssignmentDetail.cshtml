@@ -6,7 +6,7 @@
 
 <h1>Request @Model.VehicleRequestNumber Detail </h1>
 
-<div>
+<div class="container-fluid" width="100%">
     <h4>Request Details</h4>
     <hr />
     <dl class="row">
@@ -117,3 +117,20 @@
 <div>
     <a asp-action="Weekly">Back To Weekly</a>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#pY").on("click", function () {
+                var val = $('#yearSelect3').val();
+                $.ajax({
+                    url: "/Holiday/Calendar",
+                    type: "GET",
+                    data: { year: ((val * 1) + 1) }
+                })
+                    .done(function (partialViewResult) {
+                        $("#refTable").html(partialViewResult);
+                    });
+            });
+        });
+    </script>
+}

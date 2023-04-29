@@ -13,7 +13,7 @@
     <SourceRoot Include="C:\Users\rh41200\.nuget\packages\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc-bootstrap3.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc-bootstrap3.css')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc-bootstrap3.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc-bootstrap3.css')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -21,7 +21,7 @@
       <Private>False</Private>
       <Link>Resources\css\gridmvc-bootstrap3.css</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc-bootstrap3.min.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc-bootstrap3.min.css')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc-bootstrap3.min.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc-bootstrap3.min.css')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -29,7 +29,7 @@
       <Private>False</Private>
       <Link>Resources\css\gridmvc-bootstrap3.min.css</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc.css')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc.css')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -37,7 +37,7 @@
       <Private>False</Private>
       <Link>Resources\css\gridmvc.css</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc.min.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\css\gridmvc.min.css')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc.min.css" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\css\gridmvc.min.css')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -45,7 +45,7 @@
       <Private>False</Private>
       <Link>Resources\css\gridmvc.min.css</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-ajax.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-ajax.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-ajax.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-ajax.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -53,7 +53,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-ajax.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-ajax.min.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-ajax.min.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-ajax.min.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-ajax.min.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -61,7 +61,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-ajax.min.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ar.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ar.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ar.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ar.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -69,7 +69,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-ar.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-bg.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-bg.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-bg.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-bg.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -77,7 +77,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-bg.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ca.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ca.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ca.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ca.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -85,7 +85,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-ca.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-cs.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-cs.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-cs.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-cs.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -93,7 +93,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-cs.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-da.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-da.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-da.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-da.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -101,7 +101,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-da.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-de.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-de.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-de.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-de.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -109,7 +109,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-de.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-es.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-es.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-es.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-es.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -117,7 +117,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-es.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-eu.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-eu.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-eu.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-eu.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -125,7 +125,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-eu.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-fa.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-fa.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-fa.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-fa.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -133,7 +133,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-fa.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-fr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-fr.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-fr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-fr.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -141,7 +141,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-fr.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-gl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-gl.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-gl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-gl.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -149,7 +149,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-gl.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-hr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-hr.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-hr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-hr.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -157,7 +157,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-hr.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-it.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-it.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-it.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-it.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -165,7 +165,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-it.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-nb.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-nb.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-nb.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-nb.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -173,7 +173,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-nb.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-nl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-nl.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-nl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-nl.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -181,7 +181,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-nl.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-pt.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-pt.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-pt.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-pt.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -189,7 +189,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-pt.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ru.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-ru.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ru.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-ru.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -197,7 +197,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-ru.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-se.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-se.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-se.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-se.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -205,7 +205,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-se.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-sl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-sl.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-sl.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-sl.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -213,7 +213,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-sl.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-sr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-sr.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-sr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-sr.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -221,7 +221,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-sr.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-tr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-tr.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-tr.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-tr.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -229,7 +229,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-tr.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-uk.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc-lang-uk.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-uk.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc-lang-uk.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -237,7 +237,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc-lang-uk.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -245,7 +245,7 @@
       <Private>False</Private>
       <Link>Resources\js\gridmvc.js</Link>
     </Content>
-    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc.min.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\netcoreapp3.1\Resources\js\gridmvc.min.js')">
+    <Content Include="$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc.min.js" Condition="Exists('$(NuGetPackageRoot)gridmvccore\5.5.2\contentFiles\any\net6.0\Resources\js\gridmvc.min.js')">
       <NuGetPackageId>GridMvcCore</NuGetPackageId>
       <NuGetPackageVersion>5.5.2</NuGetPackageVersion>
       <NuGetItemType>Content</NuGetItemType>
@@ -255,6 +255,7 @@
     </Content>
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\6.0.1\buildTransitive\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\6.0.1\buildTransitive\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.32\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore.design\3.1.32\build\netcoreapp2.0\Microsoft.EntityFrameworkCore.Design.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.32\buildTransitive\Microsoft.AspNetCore.Identity.UI.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.identity.ui\3.1.32\buildTransitive\Microsoft.AspNetCore.Identity.UI.props')" />
   </ImportGroup>

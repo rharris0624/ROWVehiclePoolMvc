@@ -12,8 +12,9 @@ namespace RowVehiclePoolMVC.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SectionDesc { get; set; }
-        public string SectionManagerNum { get; set; }
+        public string SectionManagerEmail { get; set; }
         public string SectionManagerFirstName { get; set; }
         public string SectionManagerLastName { get; set; }
+        public string DivisionHeadEmail { get; set; }
     }
 }

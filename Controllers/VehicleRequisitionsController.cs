@@ -18,6 +18,13 @@ using RowVehiclePoolMVC.Utilities;
 
 using static System.Net.Mime.MediaTypeNames;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Graph;
+using Microsoft.Identity.Web;
+using Microsoft.Extensions.Logging;
+//using Microsoft.Graph.Models;
+//using Microsoft.Graph.Models;
 
 namespace RowVehiclePoolMVC.Controllers
 {
@@ -25,13 +32,28 @@ namespace RowVehiclePoolMVC.Controllers
     {
         private ISession _session;
         private readonly RvpAppContext _context;
+//        private readonly RvpAppBudContext _appBudContext;
         private PageInfo _pageInfo;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
         public UserInfo _userInfo { get; set; }
         private readonly IMailService _mailService;
-        public VehicleRequisitionsController(RvpAppContext context, IHttpContextAccessor httpContextAccessor, IMailService mailService)
+        private readonly GraphServiceClient _graphServiceClient;
+        private readonly MicrosoftIdentityConsentAndConditionalAccessHandler _consentHandler;
+        private readonly ILogger<VehicleRequisitionsController> _logger;
+        private string[]? _graphScopes;
+        public VehicleRequisitionsController(RvpAppContext context, 
+            IHttpContextAccessor httpContextAccessor, 
+            IMailService mailService,
+            IConfiguration configuration,
+            GraphServiceClient graphServiceClient,
+            MicrosoftIdentityConsentAndConditionalAccessHandler consentHandler,
+            ILogger<VehicleRequisitionsController> logger)
         {
+            _logger = logger;
+            _graphServiceClient = graphServiceClient;
+            _consentHandler = consentHandler;
+            _graphScopes = configuration.GetValue<string>("DownStreamApi:Scopes").Split(' ');
             _mailService = mailService;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
@@ -41,6 +63,7 @@ namespace RowVehiclePoolMVC.Controllers
                 _pageInfo = new PageInfo(_context);
                 httpContextAccessor.HttpContext.Session.SetObjectAsJson("PageInfo", _pageInfo);
             }
+            _configuration = configuration;
         }
 
         public ActionResult FilterJobFunctionList(string jobNum)
@@ -50,7 +73,10 @@ namespace RowVehiclePoolMVC.Controllers
         public ActionResult SelectJobFunction()
         {
             IEnumerable<FunctionSearch> functionSearch = null;
-            using (var allotmentContext = new RvpAppAlltContext())
+            var contextOptions = new DbContextOptionsBuilder<RvpAppAlltContext>()
+               .UseSqlServer(_configuration.GetConnectionString("Allotments_ConnectionString"))
+               .Options;
+            using (var allotmentContext = new RvpAppAlltContext(contextOptions))
             {
                 var query = allotmentContext.AllotDetail.Where(c => (c.Func.Trim() == "3000" || c.Func.Trim() == "3001" || c.Func.Trim() == "3150" || c.Func.Trim() == "3151")
                                             && (c.FuncType == "1" || c.FuncType == "2")).Select(c => new FunctionSearch { Job = c.JobNum, Function = c.Func, FAP = c.FapNum });
@@ -140,9 +166,9 @@ namespace RowVehiclePoolMVC.Controllers
             }
             if (vehicleRequest.FilterRequestDate)
             {
-                if(vehicleRequest.ReqFromDate != null && vehicleRequest.ReqFromDate != DateTime.MinValue)
+                if (vehicleRequest.ReqFromDate != DateTime.MinValue)
                     query = query.Where(c => c.VehReqDate >= vehicleRequest.ReqFromDate );
-                if(vehicleRequest.ReqToDate != null && vehicleRequest.VehReqDate != DateTime.MinValue)
+                if (vehicleRequest.VehReqDate != DateTime.MinValue)
                     query = query.Where(c => c.VehReqDate <= vehicleRequest.ReqToDate);
             }
             var vehicleRequisitions = await query.ToListAsync();
@@ -160,11 +186,100 @@ namespace RowVehiclePoolMVC.Controllers
             return View(vehicleRequestVM);
         }
 
+        [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
+        private async Task<EmployeeInfoVM> GetEmployeeInfo(string email)
+        {
+            EmployeeInfoVM employeeInfoVM = null;
+            try
+            {
+                IGraphServiceUsersCollectionPage users = await _graphServiceClient.Users.Request()
+                    .Filter("mail eq '" + email + "'" )
+                    .WithAppOnly()
+                    .Select(u => new { u.DisplayName, u.Mail, u.Id, u.EmployeeId, u.MobilePhone, u.BusinessPhones, u.Manager, u.OnPremisesExtensionAttributes })
+                    .GetAsync();
+
+                if (users == null && users.Count > 0)
+                {
+                    var user = users.FirstOrDefault();
+                    employeeInfoVM = new EmployeeInfoVM() {
+                        DivisionHeadEmail = await GetDivisionHeadEmail(user.OfficeLocation, user.OnPremisesExtensionAttributes.ExtensionAttribute4),
+                        EmployeeNumber = user.EmployeeId,
+                        FirstName = user.GivenName,
+                        LastName = user.Surname,
+                        SectionDesc = user.Department ?? "",
+                        SectionId= user.Department ?? "",
+                        SectionManagerEmail = await GetSectionHeadEmail(user.OfficeLocation, user.OnPremisesExtensionAttributes.ExtensionAttribute5)
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            return employeeInfoVM;
+        }
+ 
+        [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
+        private async Task<string> GetDivisionHeadEmail(string employeeOfficeLocation, string division)
+        {
+            string  divHeadEmail = null;
+            try
+            {
+                var users = await _graphServiceClient.Users.Request()
+                    .Filter("jobTitle eq 'division head'")
+                    .Select(u => new { u.Mail, u.OfficeLocation, u.OnPremisesExtensionAttributes.ExtensionAttribute4 })
+                    .GetAsync();
+                if(users != null && users.Count > 0)
+                {
+                    var user = users.Where(c => c.OnPremisesExtensionAttributes.ExtensionAttribute4 == division).FirstOrDefault();
+                    if(user != null && user.Mail != null)
+                    {
+                        divHeadEmail = user.Mail;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            return divHeadEmail;
+        }
+        [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
+        private async Task<string> GetSectionHeadEmail(string employeeOfficeLocation, string section)
+        {
+            string divHeadEmail = null;
+            try
+            {
+                var users = await _graphServiceClient.Users.Request()
+                    .Filter("jobTitle eq 'section head'")
+                    .Select(u => new { u.Mail, u.OnPremisesExtensionAttributes.ExtensionAttribute5 })
+                    .GetAsync();
+                if (users != null && users.Count > 0)
+                {
+                    var user = users.Where(c => c.OnPremisesExtensionAttributes.ExtensionAttribute5 == section).FirstOrDefault();
+                    if (user != null && user.Mail != null)
+                    {
+                        divHeadEmail = user.Mail;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                throw;
+            }
+            return divHeadEmail;
+        }
+        [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
         // GET: VehicleRequisitions/GetMyRequests
         public async Task<IActionResult> ViewMyRequisitions()
         {
-            var userInfo = Utility.GetUserInfo(User.Identity.Name.Substring(User.Identity.Name.IndexOf('\\')+1));
+            var userProfiles = await GetEmployeeInfo("jessica.sisk@ardot.gov");
 
+            var userid = Utility.GetUserId(User.Identity.Name);
+            var userInfo = Utility.GetUserInfo(userid);
             var query = _context.VehicleRequisition.Where(c => c.Userid == userInfo.UserId).OrderByDescending(c => c.VehReqDate).Skip(_pageInfo.PageStart).Take(_pageInfo.ItemsPerPage);
             return View(await query.ToListAsync());
         }
@@ -184,6 +299,51 @@ namespace RowVehiclePoolMVC.Controllers
             }
 
             return View(vehicleRequisition);
+        }
+
+        public async Task<IActionResult> DeleteRequestors()
+        {
+            var recentRequestors = _context.VehicleAssignment.Join(_context.VehicleRequisition, a => a.VehReqNo, b => b.VehReqNo, (a, b) => new {a,b})
+                .Where(a => a.a.AssignReturnDate > DateTime.Now).Select( c => new DeleteRequestorVM { 
+                    lname = c.b.Requestor.Substring(c.b.Requestor.IndexOf(' ') + 1),
+                    fname = c.b.Requestor.Substring(0,c.b.Requestor.IndexOf(' ')),
+                    Requestor= c.b.Requestor,
+                    selected = false
+                }).Distinct().ToList();
+
+            var allRequestors = _context.VehicleRequisition
+            .Distinct().Select(c => new DeleteRequestorVM
+            {
+                selected = true,
+                lname = c.Requestor.Substring(c.Requestor.IndexOf(' ') + 1),
+                fname = c.Requestor.Substring(0, c.Requestor.IndexOf(' ')),
+                Requestor = c.Requestor,
+            }).Distinct().ToList();
+            
+            var oldRequestors = allRequestors.Except(recentRequestors, new RecentRequisitionComparer()).OrderBy(c => c.lname);
+
+            return View(oldRequestors.ToList());
+        }
+
+        [HttpPost]
+        //public async Task<IActionResult> DeleteAssignments(DeleteRequestorVM assignedAssignments)
+        public async Task<IActionResult> DeleteAssignments(IList<DeleteRequestorVM> assignedAssignments)
+        {
+            List<VehicleRequisition> vehicleRequisitions = new List<VehicleRequisition>();
+            List<VehicleAssignment> vehicleAssignments = new List<VehicleAssignment>();
+            foreach(var assignment in assignedAssignments)
+            {
+                vehicleRequisitions.AddRange(_context.VehicleRequisition.Where(c => c.Requestor == assignment.Requestor));
+            }
+            foreach(var vehicleRequisition in vehicleRequisitions)
+            {
+                vehicleAssignments.AddRange(_context.VehicleAssignment.Where(c => c.VehReqNo == vehicleRequisition.VehReqNo));
+            }
+            _context.VehicleAssignment.RemoveRange((IEnumerable<VehicleAssignment>)vehicleAssignments);
+            _context.VehicleRequisition.RemoveRange((IEnumerable<VehicleRequisition>)vehicleRequisitions);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index","Home");
         }
         private string GetCurrentDomainPath()
         {
@@ -219,7 +379,7 @@ namespace RowVehiclePoolMVC.Controllers
                 // Below statement will list all entries immediately below your BaseDN
                 var results = ds.FindAll();
 
-                foreach (SearchResult sr in results)
+                foreach (System.DirectoryServices.SearchResult sr in results)
                 {
                     result = sr.Properties["extensionAttribute6"].Count > 0 ? sr.Properties["extensionAttribute6"][0].ToString() : null;
                     break;
@@ -235,10 +395,15 @@ namespace RowVehiclePoolMVC.Controllers
         public IActionResult RequestPoolVehicle()
         {
             List<string> budgetList = null;
-            using (RvpAppBudContext rvpAppBudContext = new RvpAppBudContext())
+            var contextOptions = new DbContextOptionsBuilder<RvpAppBudContext>()
+                .UseSqlServer(_configuration.GetConnectionString("BudgetInfo_ConnectionString"))
+                .Options;
+
+            using (var budContext = new RvpAppBudContext(contextOptions))
             {
-                budgetList = rvpAppBudContext.T101BudgetInf.Where(c => c.PayrEndDate == null && c.PahrBudget == "Y").Select(c => c.Budget).ToList();
-            };
+                budgetList = budContext.T101BudgetInf.Where(c => c.PayrEndDate == null && c.PahrBudget == "Y").Select(c => c.Budget).ToList();
+            }
+
             ViewBag.Budget = budgetList;
             ViewBag.VehicleType = new List<string>() { "Car", "Pickup" };
             ViewBag.RequestStatuses = new List<ItemList>() {new ItemList{Value="P",Text = "Pending" }
@@ -287,6 +452,7 @@ namespace RowVehiclePoolMVC.Controllers
                 if (ModelState.IsValid)
                 {
                     var userid = Utility.GetUserId(vehicleRequest.EmailAddress);
+                    var lastChangeUserId = Utility.GetUserId(User.Identity.Name);
                     var userInfo = Utility.GetUserInfo(userid);
                     var vehReqNo = await _context.VehicleRequisition.MaxAsync(c => c.VehReqNo) + 1;
                     EmployeeInfoVM employeeInfo = Utility.GetEmployeeInfo(userInfo.EmployeeNumber, _context);
@@ -299,10 +465,10 @@ namespace RowVehiclePoolMVC.Controllers
                         Duties = vehicleRequest.Duties,
                         EmailAddress = vehicleRequest.EmailAddress,
                         LastChangeDate = DateTime.Now,
-                        LastChangeUserid = Request.HttpContext.User.Identity.Name.Substring(Request.HttpContext.User.Identity.Name.IndexOf("\\") + 1),
+                        LastChangeUserid = lastChangeUserId,
                         NoInParty = vehicleRequest.NoInParty,
-                        NotificationDivHead =Utility.GetDivisionHead(vehicleRequest.ReqBudget),
-                        NotificationMan = employeeInfo.SectionManagerNum ?? "",
+                        NotificationDivHead = employeeInfo.DivisionHeadEmail,
+                        NotificationMan = employeeInfo.SectionManagerEmail,
                         ReqBudget = vehicleRequest.ReqBudget,
                         ReqComments = vehicleRequest.ReqComments ?? "",
                         ReqDepartDate = vehicleRequest.ReqDepartDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqDepartTime)),
@@ -310,28 +476,22 @@ namespace RowVehiclePoolMVC.Controllers
                         ReqDivision = GetDivision(),
                         ReqFap = vehicleRequest.ReqFap ?? "",
                         ReqFunction = vehicleRequest.ReqFunction ?? "",
-                        ReqJobNo = vehicleRequest.ReqJobNo,
-                        ReqSectionId = employeeInfo.SectionId,
+                        ReqJobNo = vehicleRequest.ReqJobNo ?? "",
+                        ReqSectionId = employeeInfo.SectionId ?? "",
                         Requestor = vehicleRequest.RequestFirstName + " " + vehicleRequest.RequestLastName,
-                        Userid = Me,
+                        Userid = userid,
                         VehReqDate = DateTime.Now,
                         VehReqStatus = "P",
                         VehType = vehicleRequest.VehType,
                     };
-                    var dhnf = 0;
-                    var divHead = Utility.GetDivHeadEmail(userInfo.Budget);
-                    if (divHead == null)
-                    {
-                        dhnf = 1;
-                    }
-
                     _context.Add(vehicleRequisition);
                     await _context.SaveChangesAsync();
-
+                    var dhnf = employeeInfo.DivisionHeadEmail != "Not Found" ? false : true;
+                    var smnf = employeeInfo.SectionManagerEmail != "Not Found" ? false : true;
                     var mailRequest = new MailRequest()
                     {
                         Attachments = null,
-                        Body = CreateRequestEmailMessage(vehicleRequisition, dhnf),
+                        Body = CreateRequestEmailMessage(vehicleRequisition, dhnf, smnf),
                         Subject = vehicleRequisition.Requestor + " has requested a vehicle",
                         From = vehicleRequest.EmailAddress,
                         To = Utility.GetEmailRecipients()
@@ -376,7 +536,7 @@ namespace RowVehiclePoolMVC.Controllers
             LoadAssignmentDropDowns();
             return View("AssignmentDetail", assignmentDetailVM);
         }
-
+        //[Authorize(Policy = "Admin")]
         [HttpGet]
         public async Task<IActionResult> VehicleAssign()
         {
@@ -398,7 +558,7 @@ namespace RowVehiclePoolMVC.Controllers
                     Requestor = f.c.Requestor,
                     VehType = f.c.VehType,
                     AssignTagNo = g.AssignTagNo
-                });
+                }).OrderByDescending(c => c.VehReqDate);
 
 
             assignmentSearch.Assignments = queryVal.Take(10).ToList();
@@ -508,7 +668,7 @@ namespace RowVehiclePoolMVC.Controllers
             if (assignmentSearch.SearchAssignTagNumber && assignmentSearch.AssignTagNumber != null)
                 queryVal = queryVal.Where(c => assignmentSearch.AssignTagNumber.Equals(c.AssignTagNo));
 
-            assignmentSearch.Assignments = await queryVal.Take(10).ToListAsync();
+            assignmentSearch.Assignments = await queryVal.OrderByDescending(c => c.VehReqDate).Take(10).ToListAsync();
 
             assignmentSearch.Page = 1;
             assignmentSearch.PageCount = queryVal.Count() / 10;
@@ -524,6 +684,7 @@ namespace RowVehiclePoolMVC.Controllers
         {
             var assignmentSearch = HttpContext.Session.GetObjectFromJson<AssignmentSearchVM>("assignmentSearchVM");
             var queryVal = HttpContext.Session.GetObjectFromJson<IList<AssignmentDetail>>("assignmentQueryVal");
+            queryVal = queryVal.OrderByDescending(c => c.VehReqDate).ToList();
             switch (pageLink)
             {
                 case ("first"):
@@ -559,14 +720,19 @@ namespace RowVehiclePoolMVC.Controllers
                 Value = e.Requestor
             }).Distinct().ToList();
             assignmentSearch.RequestorList = assignmentSearch.RequestorList.OrderBy(e => e.Text).ToList();
-            using (var budgetContext = new RvpAppBudContext())
+
+            var contextOptions = new DbContextOptionsBuilder<RvpAppBudContext>()
+                .UseSqlServer(_configuration.GetConnectionString("BudgetInfo_ConnectionString"))
+                .Options;
+
+            using (var budContext = new RvpAppBudContext(contextOptions))
             {
-                assignmentSearch.BudgetList = budgetContext.T101BudgetInf.Where(c => c.PahrBudget == "Y" && c.PayrEndDate == null)
-                    .Select(d => new SelectListItem()
-                    {
-                        Text = d.Budget,
-                        Value = d.Budget
-                    }).ToList();
+                assignmentSearch.BudgetList = budContext.T101BudgetInf.Where(c => c.PahrBudget == "Y" && c.PayrEndDate == null)
+                .Select(d => new SelectListItem()
+                {
+                    Text = d.Budget,
+                    Value = d.Budget
+                }).ToList();
             }
         }
 
@@ -739,15 +905,19 @@ namespace RowVehiclePoolMVC.Controllers
             return View(vehicleRequisition);
         }
 
-        private string CreateRequestEmailMessage(VehicleRequisition request, int dhnf)
+        private string CreateRequestEmailMessage(VehicleRequisition request, bool dhnf, bool smnf)
         {
             string HTML = "<HTML>";
             HTML += "<HEAD>";
             HTML += "</HEAD>";
             HTML += "<BODY  bgcolor=\"lightyellow\">";
-            if( dhnf ==  1)
+            if( dhnf )
             {
                 HTML += "<h2 align=\"center\">No division head found for this employee</h2>";
+            }
+            if (dhnf)
+            {
+                HTML += "<h2 align=\"center\">No Section manager found for this employee</h2>";
             }
             HTML += "<TABLE cellpadding=\"4\">";
             HTML += "<tr><td>Vehicle Requisition Number: " + request.VehReqNo + "</tr></td>";
@@ -778,7 +948,33 @@ namespace RowVehiclePoolMVC.Controllers
                 return NotFound();
             }
 
-            return View(vehicleRequisition);
+            var query = _context.VehicleAssignment.Where(c => c.VehReqNo == vehicleRequisition.VehReqNo);
+            string assignedTagNo = null;
+
+            if (query != null)
+                assignedTagNo = await query.Select(c => c.AssignTagNo).FirstOrDefaultAsync();
+
+            VehicleRequestVM requestVM = new VehicleRequestVM()
+            {
+                VehRequestor = vehicleRequisition.Requestor,
+                VehReqNo = vehicleRequisition.VehReqNo,
+                Destination = vehicleRequisition.Destination,
+                Duties = vehicleRequisition.Duties,
+                EmailAddress = vehicleRequisition.EmailAddress,
+                NoInParty = (int)vehicleRequisition.NoInParty,
+                AssignedTagNo = assignedTagNo != null ? assignedTagNo : "",
+                ReqDepartDate= vehicleRequisition.ReqDepartDate,
+                ReqReturnDate= vehicleRequisition.ReqReturnDate,
+                ReqBudget= vehicleRequisition.ReqBudget,
+                ReqFap= vehicleRequisition.ReqFap,
+                ReqComments= vehicleRequisition.ReqComments,
+                NotificationDivHead= vehicleRequisition.NotificationDivHead,
+                ReqSectionId= vehicleRequisition.ReqSectionId,
+                VehType= vehicleRequisition.VehType,
+                ReqJobNo= vehicleRequisition.ReqJobNo,
+                ReqFunction = vehicleRequisition.ReqFunction,
+            };
+            return View(requestVM);
         }
 
         // POST: VehicleRequisitions/Delete/5
@@ -786,7 +982,18 @@ namespace RowVehiclePoolMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            List<VehicleAssignment> vehicleAssignments = null;
+            var query =  _context.VehicleAssignment.Where(c => c.VehReqNo == id);
+            if (query.Count() == 0)
+            {
+                vehicleAssignments = await query.ToListAsync();
+            }
+            if (vehicleAssignments != null) 
+            {
+                _context.RemoveRange(vehicleAssignments);
+            }
             var vehicleRequisition = await _context.VehicleRequisition.FindAsync(id);
+
             _context.VehicleRequisition.Remove(vehicleRequisition);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index),"Home");

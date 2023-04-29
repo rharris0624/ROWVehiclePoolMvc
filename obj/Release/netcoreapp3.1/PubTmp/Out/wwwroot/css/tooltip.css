@@ -1,0 +1,10 @@
+#tipBox
+{
+    Z-INDEX: 300;
+    BACKGROUND-IMAGE: none;
+    VISIBILITY: hidden;
+    WIDTH: 200px;
+    BACKGROUND-REPEAT: repeat;
+    POSITION: absolute;
+    BACKGROUND-COLOR: orange
+}

@@ -24,6 +24,8 @@
                         <img src="~/Images/vehiclepool_18.gif" class="flex-lg-fill" alt="View Your Requisitions" id="vehiclepool_18">
                     </a>
                 </div>
+           @* @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                {*@
                 <div class="row">
                     <a asp-controller="VehicleRequisitions" asp-action="ViewAllRequisitions"
                        onmouseover="changeImages('vehiclepool_28','@Url.Content("~/Images/vehiclepool_28-over.gif")'); return true;"
@@ -31,6 +33,7 @@
                         <img src="~/Images/vehiclepool_28.gif" class="flex-lg-fill" alt="Browse All Requisitions" id="vehiclepool_28">
                     </a>
                 </div>
+                @*}*@
                 <div class="row">
                     <a asp-controller="Vehicle" asp-action="Weekly"
                        onmouseover="changeImages('vehiclepool_38','@Url.Content("~/Images/vehiclepool_38-over.gif")'); return true;"
@@ -45,6 +48,8 @@
         </div>
     </div>
     <div class="row">
+       @* @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+        {*@
         <div class="col-md-2">
             <a asp-controller="Vehicle" asp-action="AddVehicle" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_45','@Url.Content("~/Images/vehiclepool_45-over.gif")'); return true;"
@@ -59,13 +64,13 @@
                 <img src="~/Images/vehiclepool_47.gif" class="flex-lg-fill" alt="Delete Vehicle" id="vehiclepool_47">
             </a>
         </div>
-        <div class="col-md-2">
-            <a asp-controller="VehicleRequisitions" asp-action="VehicleAssign" class="p-xl-3"
+            <div class="col-md-2">
+                <a asp-controller="VehicleRequisitions" asp-action="VehicleAssign" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_49','@Url.Content("~/Images/vehiclepool_49-over.gif")'); return true;"
                onmouseout="changeImages('vehiclepool_49', '@Url.Content("~/Images/vehiclepool_49.gif")'); return true;">
-                <img src="~/Images/vehiclepool_49.gif" class="flex-lg-fill" alt="View All Requisitions" id="vehiclepool_49">
-            </a>
-        </div>
+                    <img src="~/Images/vehiclepool_49.gif" class="flex-lg-fill" alt="View All Requisitions" id="vehiclepool_49">
+                </a>
+            </div>
         <div class="col-md-2">
             <a asp-controller="Vehicle" asp-action="Index" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_51','@Url.Content("~/Images/vehiclepool_51-over.gif")'); return true;"
@@ -73,18 +78,26 @@
                 <img src="~/Images/vehiclepool_51.gif" class="flex-lg-fill" alt="Update Vehicle" id="vehiclepool_51">
             </a>
         </div>
-        <div class="col-md-2">
-            <a asp-controller="VehicleRequisitions" asp-action="DeactivateVehicle" class="p-xl-3"
+            <div class="col-md-2">
+                <a asp-controller="VehicleRequisitions" asp-action="DeactivateVehicle" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_52','@Url.Content("~/Images/vehiclepool_52-over.gif")'); return true;"
                onmouseout="changeImages('vehiclepool_52', '@Url.Content("~/Images/vehiclepool_52.gif")'); return true;">
-                <img src="~/Images/vehiclepool_52.gif" class="flex-lg-fill" alt="Deactiveate Vehicle" id="vehiclepool_52">
+                    <img src="~/Images/vehiclepool_52.gif" class="flex-lg-fill" alt="Deactiveate Vehicle" id="vehiclepool_52">
+                </a>
+            </div>
+        <div class="col-md-2">
+            <a asp-controller="VehicleRequisitions" asp-action="DeleteRequestors" class="p-xl-3"
+               onmouseover="changeImages('DeleteReq','@Url.Content("~/Images/DeleteReqOver.gif")'); return true;"
+               onmouseout="changeImages('DeleteReq', '@Url.Content("~/Images/DeleteReq.gif")'); return true;">
+                <img src="~/Images/DeleteReq.gif" class="flex-lg-fill" alt="Delete Requestors" id="DeleteReq">
             </a>
         </div>
+        @*}*@
     </div>
 </div>
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
 </div>
 
 @section Scripts{

@@ -11,6 +11,12 @@ using Microsoft.CodeAnalysis.Differencing;
 using static System.Net.Mime.MediaTypeNames;
 using System.Xml.Linq;
 using RowVehiclePoolMVC.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Graph;
+using Microsoft.Identity.Abstractions;
+using Microsoft.Identity.Web;
+using System.Threading.Tasks;
 
 namespace RowVehiclePoolMVC.Utilities
 {
@@ -24,11 +30,14 @@ namespace RowVehiclePoolMVC.Utilities
                 using (var securityContext = new RvpAppSecurityContext())
                 {
                     var userIdList = securityContext.SystemSec.Where(c => c.ReceiveMail.ToUpper() == "Y" && c.SystemId == "WRVP").Select(c => c.Userid.Trim()).Distinct().ToList();
-                    foreach(var userId in userIdList)
+                    if(userIdList != null && userIdList.Count > 0)
                     {
-                        returnString = returnString + GetEmailAddress(userId).Trim() + ";";
+                        foreach (var userId in userIdList)
+                        {
+                            returnString = returnString + GetEmailAddress(userId).Trim() + ";";
+                        }
+                        returnString = returnString.Substring(0, returnString.Length - 1);
                     }
-                    returnString = returnString.Substring(0,returnString.Length - 1);
                 }
             }
             catch (Exception ex)
@@ -145,6 +154,7 @@ namespace RowVehiclePoolMVC.Utilities
                 DirectoryEntry entry = new DirectoryEntry("LDAP://AHTD.com/OU=Employees,OU=Users,OU=ARDOT,DC=AHTD,DC=com", username, passwd, AuthenticationTypes.None);
 
                 ds = new DirectorySearcher(entry, "(&(objectCategory=User)(objectClass=person)(sAMaccountname=" + userid + "))");
+
                 //ds = new DirectorySearcher(entry, "(&(objectCategory=User)(objectClass=person))");
 
                 ds.PropertiesToLoad.Add("mail");
@@ -160,7 +170,7 @@ namespace RowVehiclePoolMVC.Utilities
                 // Below statement will list all entries immediately below your BaseDN
                 var results = ds.FindAll();
 
-                foreach (SearchResult sr in results)
+                foreach (System.DirectoryServices.SearchResult sr in results)
                 {
                     userInfo = new UserInfo();
                     userInfo.Name = sr.Properties["name"].Count > 0 ? sr.Properties["name"][0].ToString() : null;
@@ -183,7 +193,7 @@ namespace RowVehiclePoolMVC.Utilities
         }
         // GET: VehicleRequisitions/Create
 
-        public static string GetDivHeadEmail(string budget)
+        public static string GetDivHeadEmail(string budget, string office)
         {
 #if DEBUG == true
             budget = "120";
@@ -213,7 +223,7 @@ namespace RowVehiclePoolMVC.Utilities
                 {
                     var member = sr.ToString();
                     DirectoryEntry entry2 = new DirectoryEntry("LDAP://DC-11/" + member , username, passwd, AuthenticationTypes.None);
-                    ds = new DirectorySearcher(entry2, "(&(ExtensionAttribute4=" + budget + "))");
+                    ds = new DirectorySearcher(entry2, "(&(ExtensionAttribute4=" + budget + ")(physicalDeliveryOfficeName=" + office + "))");
                     ds.PropertiesToLoad.Add("o");
                     ds.PropertiesToLoad.Add("ExtensionAttribute5");
                     ds.PropertiesToLoad.Add("ExtensionAttribute4");
@@ -225,9 +235,8 @@ namespace RowVehiclePoolMVC.Utilities
                     ds.PropertiesToLoad.Add("department");
                     ds.PropertiesToLoad.Add("title");
                     ds.PropertiesToLoad.Add("subtree");
-                    //if instr(rs2("department"), "Right of Way") >= 1 and instr(UCase(rs2("Title")), "DIVISION HEAD") >= 0 then
                     var sr2 = ds.FindOne();
-                    if (sr2 != null && sr2.Properties["department"][0].ToString().Contains("Right of Way") && sr2.Properties["title"][0].ToString().Contains("DIVISION HEAD"))
+                    if (sr2 != null &&  sr2.Properties["title"][0].ToString().ToUpper().Contains("DIVISION HEAD"))
                     {
                         dhmail = sr2.Properties["mail"][0].ToString();
                         dhnf = 0;
@@ -277,6 +286,7 @@ namespace RowVehiclePoolMVC.Utilities
                 //IEnumerable<VwRowEmployees>
                 //.Where(s => s.JobTitle.ToUpper().Contains("SECTION HEAD") || s.JobTitle.ToUpper().Contains("DIVISION HEAD"))
                 var deptHeads = rowContext.VwRowEmployees.Where(s => s.JobTitle.ToUpper().Contains("SECTION HEAD") || s.JobTitle.ToUpper().Contains("DIVISION HEAD")).GroupBy(g => g.SectionId).Select(y => new { SectionId = y.Key, Item = y.Min(g => g.Item) }).AsEnumerable();
+                var divHeadEmpNum = rowContext.VwRowEmployees.Where(s => s.JobTitle.ToUpper().Equals("DIVISION HEAD")).FirstOrDefault().EmployeeNumber;
                 var deptHead = rowContext.VwRowEmployees.Join(deptHeads, ei => new { ei.SectionId, ei.Item }, dh => new { dh.SectionId, dh.Item }, (d, e) => new { d, e }).Select(p => new
                 {
                     p.e.SectionId,
@@ -295,7 +305,8 @@ namespace RowVehiclePoolMVC.Utilities
                                                                                                                         LastName = f.f.NameLast,
                                                                                                                         SectionId = f.f.SectionId,
                                                                                                                         SectionDesc = f.f.SectionDesc,
-                                                                                                                        SectionManagerNum = g.SectionManagerNum,
+                                                                                                                        SectionManagerEmail = GetEmailFromEmployeeNumber(g.SectionManagerNum),
+                                                                                                                        DivisionHeadEmail = GetEmailFromEmployeeNumber(divHeadEmpNum),
                                                                                                                         SectionManagerFirstName = g.SectionManagerFirstName,
                                                                                                                         SectionManagerLastName = g.SectionManagerLastName
                                                                                                                     }).Where(p => p.EmployeeNumber.Equals(employeeNumber)).FirstOrDefault();
@@ -308,6 +319,35 @@ namespace RowVehiclePoolMVC.Utilities
                 Console.WriteLine("Error: " + ex.Message);
                 return null;
             }
+        }
+
+        private static string GetEmailFromEmployeeNumber(string employeeNumber)
+        {
+            var returnVal = "";
+            try
+            {
+                //If you are not sure about username and password, leave below 2 variables as it is
+                String username = "AHTD\\LDAP";        //Change to your username, if you have any
+                String passwd = "LDAPsearch";           //Change to your Password, if you have any
+
+
+                DirectorySearcher ds = null;
+                DirectoryEntry entry = new DirectoryEntry("LDAP://AHTD.com/OU=Employees,OU=Users,OU=ARDOT,DC=AHTD,DC=com", username, passwd, AuthenticationTypes.None);
+
+                ds = new DirectorySearcher(entry, "(&(ExtensionAttribute6=" + employeeNumber + "))");
+                //ds = new DirectorySearcher(entry, "(&(objectCategory=User)(objectClass=person))");
+                ds.PropertiesToLoad.Add("0");
+                ds.PropertiesToLoad.Add("mail");
+                // Below statement will list all entries immediately below your BaseDN
+                var results = ds.FindOne();
+
+                returnVal = results != null ? returnVal = results.Properties["mail"][0].ToString() : "Not Found";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            return returnVal;
         }
 
         public static string GetDivisionHead(string budget)
@@ -332,7 +372,6 @@ namespace RowVehiclePoolMVC.Utilities
                 ds.PropertiesToLoad.Add("physicalDeliveryOfficeName");
                 ds.PropertiesToLoad.Add("subtree");
                 ds.PropertiesToLoad.Add("adspath");
-                ds.PropertiesToLoad.Add("mail");
                 ds.PropertiesToLoad.Add("cn");
                 ds.PropertiesToLoad.Add("objectClass");
                 ds.PropertiesToLoad.Add("department");
@@ -340,7 +379,7 @@ namespace RowVehiclePoolMVC.Utilities
                 // Below statement will list all entries immediately below your BaseDN
                 var results = ds.FindAll();
 
-                foreach (SearchResult sr in results)
+                foreach (System.DirectoryServices.SearchResult sr in results)
                 {
                     if (sr.Properties["department"][0].ToString().ToLower().Contains("right of way") && sr.Properties["Title"][0].ToString().ToUpper().Contains("DIVISION HEAD"))
                     {

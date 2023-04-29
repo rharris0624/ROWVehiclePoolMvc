@@ -6,6 +6,7 @@
 	<td style="background-color: #555555" align="center" colspan="7">
 	<table width=100% border=0 cellspacing=0 cellpadding=2>
 	  <tr>
+          <input type="hidden" id="usageDate" value='@Model.UsageDate' />
         @{
             string GetWeekTitle(DateTime uDate)
             {
@@ -16,26 +17,25 @@
 
             var begining = DateTime.Now.Year - 11;
             var ending = DateTime.Now.Year + 2;
-                        if (begining == Model.UsageDate.Year)
+            if (begining == Model.UsageDate.Year)
             {
                 <td align="right"><font color =#555555>next week &lt;&lt; last week</font></td>
-                            <td align="center" colspan="2"><font color=#ffffff><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
-                            <td align="left"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt</b></a></td>
+                <td align="center" colspan="2"><font color=#ffffff><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                <td align="left"><button id="nextWeek" onclick="DisplayWeekly(7)" class="week-switch"><b>next week &gt;&gt;</b></button></td>
             }
             else if(ending == Model.UsageDate.Year)
             {
-                            <td align="right"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt</b></a></td>
-                            <td align="center"><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                <td align="center"><button id="nextWeek" onclick="DisplayWeekly(7)" class="week-switch" ><b>next week &gt;&gt;</b></button><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
                 <td align=left><font color ="#555555">next week &gt;&gt;</font></td>
             }
             else
             {
-                            <td align="right"><font color="#555555"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(-7) class="weekSwitch"><b>&lt;&lt; last week</b></a></font></td>
-                            <td align="center"><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
-                            <td align="left"><a asp-action="Weekly" asp-route-sDate=@Model.UsageDate.AddDays(7).Date class="weekSwitch"><b>next week &gt;&gt;</b></a></td>
+                <td align="right"><font color="#555555"><button id="previousWeek" onclick="DisplayWeekly(-7)"class="week-switch"><b>&lt;&lt; last week</b></button></font></td>
+                <td align="center"><font color="#ffffff"><b>@GetWeekTitle(Model.UsageDate)</b></font></td>
+                <td align="left"><button id="nextWeek" onclick="DisplayWeekly(7)" class="week-switch"><b>next week &gt;&gt;</b></button></td>
             }
       }
-                </tr>
+      </tr>
             </table>
             <tr>
                 @{

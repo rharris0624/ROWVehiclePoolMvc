@@ -20,10 +20,16 @@
                 @Html.DisplayNameFor(model => model.Requestor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehType)
+                @Html.DisplayNameFor(model => model.ReqDepartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReqReturnDate)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Duties)
@@ -32,49 +38,10 @@
                 @Html.DisplayNameFor(model => model.NoInParty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReqDivision)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqSectionId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqBudget)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqFunction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqJobNo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqFap)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ReqComments)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReqDepartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReqReturnDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Userid)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.VehReqStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NotificationDivHead)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NotificationMan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmailAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastChangeUserid)
             </th>
             <th></th>
         </tr>
@@ -90,10 +57,16 @@
                     @Html.DisplayFor(modelItem => item.Requestor)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VehType)
+                    @Html.DisplayFor(modelItem => item.ReqDepartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReqReturnDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Destination)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehType)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Duties)
@@ -102,49 +75,13 @@
                     @Html.DisplayFor(modelItem => item.NoInParty)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReqDivision)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqSectionId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqBudget)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqFunction)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqJobNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqFap)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ReqComments)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqDepartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReqReturnDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Userid)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.VehReqStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NotificationDivHead)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NotificationMan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmailAddress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastChangeUserid)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.VehReqNo">Edit</a> |

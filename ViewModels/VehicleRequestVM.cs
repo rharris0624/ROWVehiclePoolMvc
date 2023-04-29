@@ -29,6 +29,7 @@ namespace RowVehiclePoolMVC.ViewModels
         public static string DefaultSortOrder = "DESCENDING";
         public static string SortingByDefault = "VehReqDate";
         [Display(Name = "Request ID")]
+        [Key]
         public int VehReqNo { get; set; }
         [Display(Name = "Request Date")]
         public DateTime VehReqDate { get; set; }
@@ -111,11 +112,13 @@ namespace RowVehiclePoolMVC.ViewModels
         public bool FilterStatus { get; set; }
         public bool FilterRequestDate { get; set; }
         public IList<ItemList> Requestors { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ReqFromDate { get; set; }
-        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ReqToDate { get; set; }
         [Display(Name ="Tag #")]
         public string AssignedTagNo { get; set; }
+        [Display(Name ="User Id")]
+        public string UserId { get; set; }
     }
 }

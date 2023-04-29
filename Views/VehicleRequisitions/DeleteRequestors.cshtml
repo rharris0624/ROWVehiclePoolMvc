@@ -1,0 +1,57 @@
+﻿@model IList<DeleteRequestorVM>
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p style="align-content: center">
+<form class="form-grid" id="thisForm">
+    <div class="container" style="align-content: center; width: 50%" >
+            <h1>Delete Requestors</h1>
+            @{ int counter = 0;}
+            @foreach (var x in Model)
+            {
+             <div class="row" style="align-content: center; background-color: lightsteelblue; border-block: 1px solid black">
+                <div class="col col-4 dbox"><input class="form-control" readonly asp-for="@x.lname" id="@($"lname-{counter}")"/></div>
+                <div class="col col-4 dbox"><input class="form-control" readonly asp-for="@x.fname" id="@($"fname-{counter}")"/></div>
+                <div class="col col-4 dbox"><input type="checkbox" name="selected" id="@($"selected-{counter}")"/></div>
+                <input type="hidden" asp-for="@x.Requestor" id="@($"requestor-{counter}")" />
+                <input type="hidden" class="counter" value=@(counter) id="@($"counter-{counter}")"/>
+            </div>
+                counter++;
+            }
+            <input type="submit" value="Delete Selected Assignments" id="submit" formmethod="post"/>
+        </div>
+</form>
+</p>
+@section Scripts
+{
+<script type="text/javascript" >
+        document.getElementById("thisForm").onsubmit = function (){
+            var selectedObjects = [];
+            $('div.row').has(':checkbox:checked').each( function(){
+                var rowVal = this.querySelectorAll('.counter')[0].value;
+                var requestor = document.getElementById("requestor-"+rowVal).value;
+                var lname = document.getElementById("lname-" + rowVal).value;
+                var fname = document.getElementById("fname-" + rowVal).value;
+                var requestObject = { "lname": lname, "fname": fname, "Requestor": requestor};
+                selectedObjects.push(requestObject);
+            });
+
+            if(selectedObjects.length > 0){
+                $.ajax({
+                    url: '@Url.Action("DeleteAssignments","VehicleRequisitions")',
+                    async: false,
+                    type: "POST",
+                    data: {"assignedAssignments": selectedObjects},
+                    cache: false,
+                    error: function (response) {
+                        alert('error : ' + response);
+                    }
+                });
+            }
+        };
+</script>
+
+}
+

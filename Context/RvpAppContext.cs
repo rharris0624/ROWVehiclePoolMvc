@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using RowVehiclePoolMVC.Models;
+using RowVehiclePoolMVC.ViewModels;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -31,7 +32,7 @@ namespace RowVehiclePoolMVC.Context
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=e290-app-61;Database=ROWVehiclePool;Trusted_Connection=True;MultipleActiveResultSets=True");
+                optionsBuilder.UseSqlServer("Server=tcp:ardotdbsrv1.database.windows.net;Database=RowVehiclePool;User Id=HttpDevWeb;Password=Mh@Llifww@5;MultipleActiveResultSets=true");
             }
         }
 
@@ -212,5 +213,7 @@ namespace RowVehiclePoolMVC.Context
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
         public DbSet<RowVehiclePoolMVC.ViewModels.RequestDetailVM> RequestDetailVM { get; set; }
+
+        public DbSet<RowVehiclePoolMVC.ViewModels.VehicleRequisitionVM> VehicleRequisitionVM { get; set; }
     }
 }

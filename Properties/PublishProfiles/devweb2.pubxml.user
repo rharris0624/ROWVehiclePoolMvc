@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>
+    </EncryptedPassword>
+    <History>True|2023-04-21T13:04:41.3744666Z;True|2023-04-20T16:12:43.5100467-05:00;True|2023-04-20T14:21:33.3495887-05:00;True|2023-04-14T10:57:07.9422175-05:00;False|2023-04-14T10:47:52.5726552-05:00;False|2023-04-14T10:45:57.6271393-05:00;True|2023-04-14T10:41:44.7187955-05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Allotments_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="BudgetInfo_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="Equipment_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="RowVehiclePoolMVCContextConnection">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="ROWVehiclePool_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="Security_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

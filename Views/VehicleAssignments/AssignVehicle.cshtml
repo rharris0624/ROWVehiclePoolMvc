@@ -1,0 +1,83 @@
+﻿@model AssignVehicleVM
+@{
+    ViewData["Title"] = "AssignVehicle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Assign Vehicle</h1>
+<hr />
+<div class="container" width="100%">
+    <div class="row" width="100%">
+        <div class="col-md-12">
+            <form asp-action="AssignVehicle" asp-antiforgery="true" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="VehReqNo" type="hidden" class="form-control" />
+                <div class="row form-group" width="100%">
+                    <label class="col col-2" asp-for="TagNumber"></label>
+                    <input class="col col-2" asp-for="TagNumber" readyonly="readonly" />
+                    <span class="col col-8 text-danger" asp-validation-for="TagNumber"></span>
+                </div>
+                <div class="row">
+                    <label class="col col-3 control-label" asp-for="DepartDate"></label>
+                    <input class="col col-4 form-control" asp-for="DepartDate" />
+                    <label class="col col-1" asp-for="DepartTime"></label>
+                    <select class="col col-2 form-control form-select" asp-for="DepartTime" asp-items="ViewBag.TimeOfDayVals"></select>
+                    <span class="col col-8 text-danger" asp-validation-for="DepartDate"></span>
+                </div>
+                <div class="row">
+                    <label class="col col-3 control-label" asp-for="ReturnDate"></label>
+                    <input class="col col-4 form-control validReturnDate" asp-for="ReturnDate" />
+                    <label class="col col-1" asp-for="ReturnTime"></label>
+                    <select class="col col-2 form-control form-select" asp-for="ReturnTime" asp-items="ViewBag.TimeOfDayVals" ></select>
+                    <span class="col-8 text-danger" asp-validation-for="ReturnDate"></span>
+                </div>
+                <div class="row">
+                    <label class="col col-3 control-label" asp-for="Comments" ></label>
+                    <input class="col col-4 form-control" asp-for="Comments" />
+                    <span  class="col col-8 text-danger" asp-validation-for="Comments"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" width="100%">
+        <div class="col col-md-12" id="_weekly">
+            <partial name="_weekly" model="@Model.VehicleWeek"></partial>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+<script type="text/javascript">
+    Date.prototype.addDays = function (days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
+    var DisplayWeekly = function (days) {
+        var newDate = new Date($("#usageDate").val());
+        newDate = newDate.addDays(days);
+        var sDate = (newDate.getMonth()+1) + '/' + newDate.getDate() + '/' + newDate.getFullYear();
+        $.ajax({
+            url: '@Url.Action("WeeklyPartial","Vehicle")?sDate=' + sDate,
+            type: "GET",
+            async: true,
+        })
+        .done(function (partialViewResult) {
+            $("#_weekly").html(partialViewResult);
+         })
+    }
+
+</script>
+}
+

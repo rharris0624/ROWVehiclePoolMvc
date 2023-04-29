@@ -6,6 +6,8 @@ using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using RowVehiclePoolMVC.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace RowVehiclePoolMVC.Models.Validation
 {
@@ -18,19 +20,27 @@ namespace RowVehiclePoolMVC.Models.Validation
         //{
         //    _comparisonProperty = comparisonProperty;
         //}
+        private IConfiguration _configuration { get; set; }
+        public ValidVehicleToAddAttribute()
+        {
 
+        }
         public override bool IsValid(object value)
         {
             bool result = true;
 
             ErrorMessage = ErrorMessageString;
             var currentValue = (string)value;
-            using ( var appContext = new RvpAppContext())
+            if (currentValue != null)
             {
-                var vehicle = appContext.Vehicle.Where(c => c.TagNumber == currentValue).FirstOrDefault();
-                if (vehicle == null || vehicle.Status.ToLower() != "i")
+                
+                using (var appContext = new RvpAppContext())
                 {
-                    result = false;
+                    var vehicle = appContext.Vehicle.Where(c => c.TagNumber == currentValue).FirstOrDefault();
+                    if (vehicle == null || vehicle.Status.ToLower() != "i")
+                    {
+                        result = false;
+                    }
                 }
             }
 

@@ -1,0 +1,39 @@
+﻿@model VehicleSelectionVM
+    @{
+        if (Model.Vehicles == null || Model.Vehicles.Count == 0)
+        {
+            <span> No Vehicles of Type @Model.VehicleType found </span>
+        }
+        else
+        {
+            <table align="center" border=1 cellspacing=0 cellpadding=0>
+            <tr>
+                <th>Tag Number</th><th>Year</th><th>Make</th><th>Model</th><th>Color</th><th>Type</th><th>Owner Budget</th><th>Beginning Service Date</th><th>Ending Service Date</th>
+            </tr>
+            @foreach (var vehicle in Model.Vehicles)
+            {
+                var statClass = vehicle.Status == "i" ? "unAvailableVehicle" : "";
+                <tr class="@statClass">
+                    <td>
+                        <a href=@Url.Action("AssignVehicle","VehicleAssignments")?tagNumber=@vehicle.TagNumber&vehReqNo=@Model.VehReqNo>@vehicle.TagNumber</a>
+                    </td>
+                    <td>@vehicle.VehYear &nbsp;</td>
+                    <td>@vehicle.Make &nbsp;</td>
+                    <td>@vehicle.Model &nbsp;</td>
+                    <Td>@vehicle.Color &nbsp;</td>
+                    <td>@vehicle.VehicleType &nbsp;</td>    
+                    <td>@vehicle.OwnerBudget &nbsp;</td>
+                    <td>@vehicle.OutOfServiceBegin &nbsp;</td>
+                    <td>@vehicle.OutOfServiceEnd &nbsp;</td>
+                </tr>
+            }
+            </table>
+
+        }
+
+   }
+<style>
+   .unAvailableVehicle  {
+       background-color: #dddddd
+   }
+</style>

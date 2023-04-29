@@ -26,6 +26,7 @@ namespace RowVehiclePoolMVC.Services
             try
             {
                 string userState = "test Message";
+                message.IsBodyHtml= true;
                 client.SendAsync(message, userState);
             }
             catch (Exception ex)

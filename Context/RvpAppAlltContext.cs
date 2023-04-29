@@ -12,29 +12,27 @@ namespace RowVehiclePoolMVC.Context
 {
     public partial class RvpAppAlltContext : DbContext
     {
-        private IConfiguration Configuration { get; set; }
         public RvpAppAlltContext()
         {
         }
 
-        public RvpAppAlltContext(DbContextOptions<RvpAppAlltContext> options, IConfiguration configuration)
+        public RvpAppAlltContext(DbContextOptions<RvpAppAlltContext> options)
             : base(options)
         {
-            Configuration = configuration;
         }
 
         public virtual DbSet<AllotDetail> AllotDetail { get; set; }
         public virtual DbSet<AllotMaster> AllotMaster { get; set; }
         public virtual DbSet<AllotTran> AllotTran { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=e290-app-61;Database=Allotments;Trusted_Connection=Yes;MultipleActiveResultSets=true");
-            }
-        }
+//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        {
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Server=tcp:ardotdbsrv1.database.windows.net;Database=Allotments;    User Id=HttpDevWeb;Password=Mh@Llifww@5;MultipleActiveResultSets=true");
+//            }
+//        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

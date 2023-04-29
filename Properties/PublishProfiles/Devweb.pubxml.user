@@ -7,5 +7,27 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword />
+    <History>True|2023-04-20T16:58:50.1233331Z;True|2023-04-20T11:31:34.9619784-05:00;True|2023-04-20T08:49:43.1281758-05:00;True|2023-04-20T08:46:25.8493723-05:00;False|2023-04-20T08:15:51.6383420-05:00;False|2023-04-20T08:14:49.7906551-05:00;True|2023-04-20T08:12:49.5249743-05:00;</History>
+    <LastFailureDetails />
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="Allotments_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="BudgetInfo_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="Equipment_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="RowVehiclePoolMVCContextConnection">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="ROWVehiclePool_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+    <DestinationConnectionStrings Include="Security_ConnectionString">
+      <Value>Server=tcp:ardotdbsrv1.database.windows.net%3bDatabase=RowVehiclePool%3bUser Id=HttpDevWeb%3bPassword=Mh%40Llifww%405%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>

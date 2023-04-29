@@ -31,7 +31,7 @@
                     </select>
                 </dt>
                 <dd class="col-sm-8">
-                    @Html.DisplayFor(model => model.VehicleRequisition.VehType)
+                    @Html.DisplayFor(model => model.VehicleRequisition.VehType, new{ @id = "VehType", @value=Model.VehicleRequisition.VehType})
                 </dd>
                 <dt class="col-sm-4">
                     @Html.DisplayNameFor(model => model.VehicleRequisition.Destination)
@@ -137,6 +137,9 @@
                     @Html.DisplayFor(model => model.VehicleRequisition.EmailAddress)
                 </dd>
             </dl>
+            <input type="hidden" asp-for="@Model.VehicleRequisition.ReqDepartDate" />
+            <input type="hidden" asp-for="@Model.VehicleRequisition.ReqReturnDate" />
+            <input type="hidden" asp-for="@Model.VehicleRequisition.VehReqNo" />
             <div>
                 @if(Model.VehicleRequisition.VehReqStatus == "A")
                 {
@@ -144,13 +147,55 @@
                 }
                 else if(Model.VehicleRequisition.VehReqStatus == "P")
                 {
-                    <input type="submit" value="submit">
+                    <input id="search" type="submit" value="submit">
                 }
                 @*<a asp-action="Index">Back to List</a>*@
             </div>
         </div>
-        <div class="col col-7 right">
-            <partial name="_weekly" model="@Model.VehicleWeek" />
+        <div class="col col-7 right" id="_weekly">
+            <partial name="_weekly" model="@Model.VehicleWeek"/>
+        </div>
+    </div>
+    <div class="row" width="100%">
+        <div class="col col-12 center" id="AvailableVehicles">
+        </div>
+    </div>
+    <div class="row" width="100%">
+        <div class="col col-12">
+            <p align="center"><a type="button" asp-action="VehicleAssign" >Back</a><br><a asp-action="Index" asp-controller="Home">Back to the Main Menu</a></p>
         </div>
     </div>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        var url = '@Url.Action("ShowAvailableVehiclesByType", "Vehicle")';
+        $('#search').click(function(){
+            var vehicleType = $("#VehicleRequisition_VehType").val();
+            var departDate = $("#VehicleRequisition_ReqDepartDate").val();
+            var returnDate = $("#VehicleRequisition_ReqReturnDate").val();
+            var vehReqNo = $("#VehicleRequisition_VehReqNo").val();
+            $('#AvailableVehicles').load(url, {vehType: vehicleType, departDate: departDate, returnDate: returnDate, vehReqNo: vehReqNo});
+        });
+
+        Date.prototype.addDays = function (days) {
+            var date = new Date(this.valueOf());
+            date.setDate(date.getDate() + days);
+            return date;
+        }
+
+        var DisplayWeekly = function (days) {
+            var newDate = new Date($("#usageDate").val());
+            newDate = newDate.addDays(days);
+            var sDate = (newDate.getMonth() + 1) + '/' + newDate.getDate() + '/' + newDate.getFullYear();
+            $.ajax({
+                url: '@Url.Action("WeeklyPartial","Vehicle")?sDate=' + sDate,
+                type: "GET",
+                async: true,
+            })
+                .done(function (partialViewResult) {
+                    $("#_weekly").html(partialViewResult);
+                })
+        }
+
+    </script>
+}
