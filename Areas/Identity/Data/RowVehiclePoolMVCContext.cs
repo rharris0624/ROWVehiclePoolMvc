@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace RowVehiclePoolMVC.Data
+namespace RowVehiclePoolMVC.Areas.Identity.Data
 {
     public class RowVehiclePoolMVCContext : IdentityDbContext<IdentityUser>
     {

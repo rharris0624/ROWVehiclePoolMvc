@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RowVehiclePoolMVC.Data;
+using RowVehiclePoolMVC.Areas.Identity.Data;
 
 [assembly: HostingStartup(typeof(RowVehiclePoolMVC.Areas.Identity.IdentityHostingStartup))]
 namespace RowVehiclePoolMVC.Areas.Identity
