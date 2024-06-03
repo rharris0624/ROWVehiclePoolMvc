@@ -1,0 +1,8 @@
+$appName = "ROWVehiclePoolMvc"
+$appURI = "https://ashtd.onmicrosoft.com/ROWVehiclePoolMvc"
+$appHomePageUrl = "https://localhost:44362/"
+$appReplyURLs = @($appURI, $appHomePageURL, "https://localhost:44362/Signin-oidc")
+if(!($myApp = Get-AzureADApplication -Filter "DisplayName eq '$($appName)'"  -ErrorAction SilentlyContinue))
+{
+    $myApp = New-AzureADApplication -DisplayName $appName -IdentifierUris $appURI -Homepage $appHomePageUrl -ReplyUrls $appReplyURLs    
+}

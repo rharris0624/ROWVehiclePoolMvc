@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns="http://schemas.microsoft.com/.NetConfiguration/v2.0">
+  <configSections/>
+  <appSettings>
+    <add key="password" value="rptsec"/>
+    <add key="ReportServer" value="http://sql-01-dev/ReportServer"/>
+    <add key="ReportsFolder" value="/PensionGold/"/>
+    <add key="Username" value="pgoldreporting"/>
+    <add key="Pwd" value="pgrptsec"/>
+    <add key="Domain" value="ahtd"/>
+    <add key="ida:ClientId" value="2a97f5ad-d498-4cf3-99db-108941b96512"/>
+    <add key="ida:Authority" value="https://login.microsoftonline.com"/>
+    <add key="ida:Tenant" value="ashtd.onmicrosoft.com"/>
+    <add key="ida:RedirectUri" value="https://localhost:44325/signin-oidc"/>
+    <!-- Place a top level domain here (ie microsoft.com) to bypass the Azure AD home realm discovery page -->
+    <add key="ida:Domain" value=""/>
+  </appSettings>
+  <connectionStrings>
+    <add name="pgold" connectionString="Data Source=pgoldsql-01,3306;Initial Catalog=pgold;User ID=PGoldReportingSecurity;Password=17IHNYBTF76;"
+      providerName="System.Data.SqlClient"/>
+    <!--<add name="pgold" connectionString="Data Source=pgoldsql-01;Initial Catalog=pgold;User ID=PGoldReportingSecurity;Password=17IHNYBTF76;"
+      providerName="System.Data.SqlClient"/>
+     <add name="PGoldReportingSecurity" connectionString="Data Source=dbdev2012\devsql2012;Initial Catalog=PGoldReportingSecurity;User ID=pgoldreportingsecurity;Password=rptsec;" providerName="System.Data.SqlClient"/> 
+    <add name="PGoldReportingSecurity"
+      connectionString="Data Source=sql-01-dev;Initial Catalog=PGoldReportingSecurity;User ID=pgoldreportingsecurity;Password=17IHNYBTF76;"
+      providerName="System.Data.SqlClient"/>
+     -->
+    <add name="PGoldReportingSecurity"
+      connectionString="Data Source=yellowlab,3306;Initial Catalog=PGoldReportingSecurity;User ID=pgoldreportingsecurity;Password=17IHNYBTF76;"
+      providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+  <!--
+    For a description of web.config changes see http://go.microsoft.com/fwlink/?LinkId=235367.
+
+    The following attributes can be set on the <httpRuntime> tag.
+      <system.Web>
+        <httpRuntime targetFramework="4.8" />
+      </system.Web>
+  -->
+  <system.web>
+    <httpHandlers>
+      <add path="Reserved.ReportViewerWebControl.axd" verb="*"
+        type="Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+        validate="false"/>
+    </httpHandlers>
+    <identity impersonate="true"/>
+    <compilation debug="true" defaultLanguage="vb" targetFramework="4.8">
+      <compilers>
+        <compiler language="vb" extension=".VB"
+          type="Microsoft.VisualBasic.VBCodeProvider, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"
+          compilerOptions="/define:Debug=True /define:Trace=True /imports:Microsoft.VisualBasic,System,System.Collections,System.Configuration,System.Data,System.Drawing,System.Web,System.Web.UI,System.Web.UI.HtmlControls,System.Web.UI.WebControls"/>
+      </compilers>
+      <assemblies>
+        <add assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+        <add assembly="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+        <!--<add assembly="Microsoft.ReportViewer.WebForms, Version=10.0.40219.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+        <add assembly="Microsoft.ReportViewer.Common, Version=10.0.40219.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>-->
+        <!--<add assembly="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845DCD8080CC91"/>
+        <add assembly="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845DCD8080CC91"/>-->
+        <add assembly="Microsoft.Build.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System.Web.Services, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+        <add assembly="System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+        <add assembly="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B03F5F7F11D50A3A"/>
+        <add assembly="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089"/>
+      </assemblies>
+      <buildProviders>
+        <add extension=".rdlc"
+          type="Microsoft.Reporting.RdlBuildProvider, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+      </buildProviders>
+    </compilation>
+    <customErrors mode="Off" defaultRedirect="errorpage.aspx">
+      <error statusCode="404" redirect="404.htm"/>
+    </customErrors>
+    <!--<authentication mode="Forms">
+      <forms name="forms" loginUrl="login.aspx" timeout="15"/>
+    </authentication>-->
+    <!--<authentication mode="Windows">
+	</authentication>-->
+    <!--<authentication mode="Forms"></authentication>
+    <authorization>
+      <deny users="?"/>
+		<allow users="*"/>
+      -->
+    <!--  <allow     users="[comma separated list of users]"
+                             roles="[comma separated list of roles]"/>
+                  <deny      users="[comma separated list of users]"
+                             roles="[comma separated list of roles]"/>
+            -->
+    <!--
+    </authorization>-->
+    <trace enabled="false" requestLimit="10" pageOutput="false" traceMode="SortByTime" localOnly="true"/>
+    <!--  SESSION STATE SETTINGS
+          ASP.NET uses cookies to identify which requests belong to a particular session. 
+          If cookies are not available, a session can be tracked by adding a session identifier to the URL. 
+          To disable cookies, set sessionState cookieless="true".
+    -->
+    <!--<sessionState mode="InProc" stateConnectionString="tcpip=127.0.0.1:42424" sqlConnectionString="data source=127.0.0.1;Trusted_Connection=yes" cookieless="false" timeout="20"/>-->
+    <sessionState mode="InProc" timeout="10"/>
+    <!--  GLOBALIZATION
+          This section sets the globalization settings of the application. 
+    -->
+    <globalization requestEncoding="utf-8" responseEncoding="utf-8"/>
+    <xhtmlConformance mode="Legacy"/>
+    <pages controlRenderingCompatibilityVersion="3.5" clientIDMode="AutoID">
+      <namespaces>
+        <add namespace="Microsoft.VisualBasic"/>
+        <add namespace="System.Data"/>
+        <add namespace="System.Drawing"/>
+        <add namespace="CommonLib"/>
+      </namespaces>
+      <controls>
+        <add assembly="DateModified" namespace="CommonLib" tagPrefix="cc1"/>
+      </controls>
+    </pages>
+  </system.web>
+  <system.webServer xmlns="">
+    <validation validateIntegratedModeConfiguration="false"/>
+    <handlers>
+      <add name="ReportViewerWebControlHandler" preCondition="integratedMode" verb="*" path="Reserved.ReportViewerWebControl.axd"
+        type="Microsoft.Reporting.WebForms.HttpHandler, Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+    </handlers>
+    <defaultDocument>
+      <files>
+        <clear/>
+        <add value="selrpt.aspx"/>
+        <add value="index.aspx"/>
+        <add value="Default.htm"/>
+        <add value="Default.asp"/>
+        <add value="index.htm"/>
+        <add value="index.html"/>
+      </files>
+    </defaultDocument>
+  </system.webServer>
+</configuration>
+<!--ProjectGuid: 79807B44-B2D3-4417-B928-49F573283D07-->

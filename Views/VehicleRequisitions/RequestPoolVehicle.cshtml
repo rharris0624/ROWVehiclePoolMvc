@@ -14,14 +14,14 @@
 </div>
 <form class="container" asp-action="RequestPoolVehicle" id="RequestPoolForm">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row" onchange="formatEmailAddress()">
+    <div class="row" onchange="formatEmailAddress()" >
         <label class="col col-3 control-label" asp-for="RequestFirstName" ></label>
-        <input class="col col-4 form-control" asp-for="RequestFirstName" />
+        <input class="col col-4 form-control" asp-for="RequestFirstName" style="text-transform:uppercase" />
         <span  class="col col-12 text-danger" asp-validation-for="RequestFirstName"></span>
     </div>
     <div class="row" onchange="formatEmailAddress()">
         <label class="col col-3 control-label" asp-for="RequestLastName" ></label>
-        <input class="col col-4 form-control" asp-for="RequestLastName" />
+        <input class="col col-4 form-control" asp-for="RequestLastName" style="text-transform:uppercase" />
         <span  class="col col-8 text-danger" asp-validation-for="RequestLastName"></span>
     </div>
     <div class="row">
@@ -124,5 +124,6 @@
             });
             */
         });
+    $("#")
     </script>
 }

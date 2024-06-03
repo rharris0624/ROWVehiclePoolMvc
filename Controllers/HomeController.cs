@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 namespace RowVehiclePoolMVC.Controllers
 { 
     [Authorize]
+
+    [AuthorizeForScopes(ScopeKeySection = "MicrosoftGraph:Scopes")]
+    [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
     public class HomeController : Controller
     {
         private readonly GraphServiceClient _graphServiceClient;
@@ -42,13 +45,14 @@ namespace RowVehiclePoolMVC.Controllers
             //    //.WithAppOnly()
             //    .Select(u => new {u.DisplayName, u.JobTitle, u.Mail, u.UserPrincipalName, u.Id, u.EmployeeId, u.OfficeLocation, u.Manager, u.MobilePhone })
             //    .GetAsync();
-            var user = await _graphServiceClient.Users.Request()
-                    .Filter("surname eq 'harris'")
-                    .WithAppOnly()
-                    .Select(u => new { u.DisplayName, u.Mail, u.Id, u.EmployeeId, u.MobilePhone, u.BusinessPhones, u.Manager, u.OfficeLocation })
+            var user = await _graphServiceClient.Me.Request()
+            //var user = await _graphServiceClient.Me.Request()
+                    //.Filter("mail eq 'richard.harris@ardot.gov'")
+                    //.WithAppOnly()
+                    //.Select(u => new { u.DisplayName, u.Mail, u.Id, u.EmployeeId, u.MobilePhone, u.BusinessPhones, u.Manager, u.OfficeLocation })
                     .GetAsync();
             //ViewData["Me"] = user;
-            ViewData["Me"] = user[0];
+            ViewData["Me"] = user;// user[0];
             return View();
         }
             

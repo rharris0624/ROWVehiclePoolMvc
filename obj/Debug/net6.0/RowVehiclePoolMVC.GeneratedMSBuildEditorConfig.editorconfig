@@ -9,201 +9,213 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RowVehiclePoolMVC
 build_property.RootNamespace = RowVehiclePoolMVC
-build_property.ProjectDir = C:\Users\rh41200\source\repos\RowVehiclePoolMVC\
+build_property.ProjectDir = C:\Users\rh41200\source\repos\ROWVehiclePoolMvc\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\rh41200\source\repos\RowVehiclePoolMVC
+build_property.MSBuildProjectDirectory = C:\Users\rh41200\source\repos\ROWVehiclePoolMvc
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/Account/AccessDenied.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Home/Index.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Home/Privacy.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Home/Profile.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Home/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/Error.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/InvalidTagNumber.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/InvalidTagNumber.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEludmFsaWRUYWdOdW1iZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_JobFunctionModal.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_JobFunctionModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Kb2JGdW5jdGlvbk1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_Layout.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_ListVehiclesWithStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MaXN0VmVoaWNsZXNXaXRoU3RhdHVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_SelectFromAvailableVehicles.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_SelectFromAvailableVehicles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TZWxlY3RGcm9tQXZhaWxhYmxlVmVoaWNsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_ShowAllVehicles.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_ShowAllVehicles.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaG93QWxsVmVoaWNsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_VehicleInfo.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_VehicleInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WZWhpY2xlSW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_weekly.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_weekly.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF93ZWVrbHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Shared/_WeeklyUsageModal.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Shared/_WeeklyUsageModal.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9XZWVrbHlVc2FnZU1vZGFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/AssignVehicle.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/AssignVehicle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXEFzc2lnblZlaGljbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/Create.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/Delete.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/Details.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/Edit.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/Index.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleAssignments/VehicleAssigned.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleAssignments/VehicleAssigned.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZUFzc2lnbm1lbnRzXFZlaGljbGVBc3NpZ25lZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/AssignmentDetail.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/AssignmentDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xBc3NpZ25tZW50RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/Delete.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/DeleteRequestors.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/DeleteRequestors.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xEZWxldGVSZXF1ZXN0b3JzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/Details.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/Edit.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/RequestPoolVehicle.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/RequestPoolVehicle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xSZXF1ZXN0UG9vbFZlaGljbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/VehicleAssign.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/VehicleAssign.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xWZWhpY2xlQXNzaWduLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/VehicleRequestSaved.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/VehicleRequestSaved.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xWZWhpY2xlUmVxdWVzdFNhdmVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/ViewAllRequisitions.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/ViewAllRequisitions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xWaWV3QWxsUmVxdWlzaXRpb25zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/ViewMyRequisitions.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/ViewMyRequisitions.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xWaWV3TXlSZXF1aXNpdGlvbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/_SelectJobFunction.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/_SelectJobFunction.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xfU2VsZWN0Sm9iRnVuY3Rpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/VehicleRequisitions/_vehicleAssignments.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/VehicleRequisitions/_vehicleAssignments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVJlcXVpc2l0aW9uc1xfdmVoaWNsZUFzc2lnbm1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/AddVehicle.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/AddVehicle.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxBZGRWZWhpY2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/AssignmentDetail.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/AssignmentDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxBc3NpZ25tZW50RGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/Edit.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/fred.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/fred.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxmcmVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/Index.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/Vehicle/Weekly.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/SetVehicleStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxTZXRWZWhpY2xlU3RhdHVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/StatusChangeDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxTdGF0dXNDaGFuZ2VEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/Vehicle/Weekly.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmVoaWNsZVxXZWVrbHkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/_ViewImports.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/rh41200/source/repos/RowVehiclePoolMVC/Views/_ViewStart.cshtml]
+[C:/Users/rh41200/source/repos/ROWVehiclePoolMvc/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

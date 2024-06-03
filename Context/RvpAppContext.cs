@@ -215,5 +215,7 @@ namespace RowVehiclePoolMVC.Context
         public DbSet<RowVehiclePoolMVC.ViewModels.RequestDetailVM> RequestDetailVM { get; set; }
 
         public DbSet<RowVehiclePoolMVC.ViewModels.VehicleRequisitionVM> VehicleRequisitionVM { get; set; }
+
+        public DbSet<RowVehiclePoolMVC.ViewModels.AddVehicleVM> AddVehicleVM { get; set; }
     }
 }

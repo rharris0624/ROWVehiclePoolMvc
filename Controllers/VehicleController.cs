@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using RowVehiclePoolMVC.Common;
 
 namespace RowVehiclePoolMVC.Controllers
 {
@@ -32,6 +33,74 @@ namespace RowVehiclePoolMVC.Controllers
             var vehicles = _context.Vehicle.Where(c => c.Status != "i").ToList();
             return View(vehicles);
         }
+        //[HttpPost]
+        //public async Task<IActionResult> FilterVehicleSearch(string tagNumber, string ownerBudget)
+        //{
+        //    var setVehicleStatusVM = HttpContext.Session.GetObjectFromJson<SetVehicleStatusVM>("setVehicleStatusVM");
+        //    if(!string.IsNullOrEmpty(tagNumber))
+        //    {
+        //        setVehicleStatusVM.Vehicles = await _context.Vehicle.Where(p => p.Equals(tagNumber)).OrderBy(p => p.TagNumber).ToListAsync();
+        //    }
+        //    if(!string.IsNullOrEmpty(ownerBudget))
+        //    {
+        //        setVehicleStatusVM.Vehicles = await _context.Vehicle.Where(p => p.Equals(ownerBudget)).OrderBy(p => p.TagNumber).ToListAsync();
+        //    }
+        //    await LoadSetStatusDropDowns();
+        //    return View("SetVehicleStatus",setVehicleStatusVM);
+        //}
+        [HttpGet]
+        public async Task<IActionResult> SetVehicleStatus()
+        {
+            await LoadSetStatusDropDowns();
+            var setVehicleStatusVM = new SetVehicleStatusVM();
+            setVehicleStatusVM.Vehicles = await _context.Vehicle.ToListAsync();//.Where(p => p.Status != "i").ToListAsync();
+
+            return View("SetVehicleStatus", setVehicleStatusVM);
+        }
+
+        private async Task LoadSetStatusDropDowns()
+        {
+            ViewBag.Budgets = await _context.Vehicle.Select(p => new SelectListItem() { Text = p.OwnerBudget, Value = p.OwnerBudget }).Distinct()?.ToListAsync();
+            IEnumerable<SelectListItem> tagNumbers = _context.Vehicle.Where(c => c.OwnerBudget == "120").Select(p => new SelectListItem()
+            {
+                Text = p.TagNumber + (p.Status == "i" ? " (inactive) " : ""),
+                Value = p.TagNumber
+            });
+            tagNumbers = tagNumbers.Prepend(new SelectListItem() { Value = "Show All Vehicles", Text = "Show All Vehicles" });
+            ViewBag.TagNumbers = tagNumbers;
+        }
+
+        [HttpGet]
+        public IActionResult ListVehiclesWithStatus(SetVehicleStatusVM setVehicleStatusVM)
+        {
+            var vehicleQuery = HttpContext.Session.GetObjectFromJson<SetVehicleStatusVM>("setVehicleStatusQueryVal");
+            var vehicles = vehicleQuery.Vehicles;
+            return View(vehicles);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> VehicleSearchWithStatus(SetVehicleStatusVM setVehicleStatusVM)
+        {
+            IQueryable<Vehicle> vehicles = _context.Vehicle;
+            if (setVehicleStatusVM.SearchTypeSelected == "Tag")
+            {
+                if (setVehicleStatusVM.TagNumber != "Show All Vehicles")
+                {
+                    vehicles = vehicles.Where(p => p.TagNumber == setVehicleStatusVM.TagNumber);
+                }
+            }
+            else
+            {
+                vehicles = vehicles.Where(p => p.OwnerBudget == setVehicleStatusVM.Budget);
+            }
+            var vehicleList = await vehicles.ToListAsync();
+
+            await LoadSetStatusDropDowns();
+            setVehicleStatusVM.Vehicles = vehicleList;
+            return View("SetVehicleStatus", setVehicleStatusVM);
+
+        }
+
         [HttpGet]
         public IActionResult AssignmentDetail(decimal assignNo)
         {
@@ -81,6 +150,20 @@ namespace RowVehiclePoolMVC.Controllers
                 VehicleType = "",
             };
             return View(addVehicleVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeVehicleStatus(string tagNumber, string status)
+        {
+            var vehicle = _context.Vehicle.Where(p => p.TagNumber == tagNumber).FirstOrDefault();
+            if (vehicle != null)
+            {
+                vehicle.Status = vehicle.Status == "i" ? "A" : "i";
+                _context.Update(vehicle);
+                await _context.SaveChangesAsync();
+            }
+            var vehicles = await _context.Vehicle.ToListAsync();
+            return PartialView("_ListVehiclesWithStatus",vehicles);
         }
 
         [HttpPost]
@@ -164,6 +247,12 @@ namespace RowVehiclePoolMVC.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ListVehiclesWithStatus()
+        {
+            var vehicleList = await _context.Vehicle.ToListAsync();
+            return PartialView("_ListVehiclesWithStatus");
+        }
+        [HttpGet]
         public IActionResult WeeklyPartial(String sDate)
         {
             DateTime dDate;
@@ -206,8 +295,8 @@ namespace RowVehiclePoolMVC.Controllers
         [HttpGet]
         public IActionResult ShowAllVehicles()
         {
-                var vehicles = _context.Vehicle.Select(c => c).OrderBy(c=>c.TagNumber).ToList();
-                return PartialView("_ShowAllVehicles", vehicles);
+            var vehicles = _context.Vehicle.Select(c => c).OrderBy(c=>c.TagNumber).ToList();
+            return PartialView("_ShowAllVehicles", vehicles);
         }
 
         [HttpPost]

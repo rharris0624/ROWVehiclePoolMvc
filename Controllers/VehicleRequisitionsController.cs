@@ -42,12 +42,17 @@ namespace RowVehiclePoolMVC.Controllers
         private readonly MicrosoftIdentityConsentAndConditionalAccessHandler _consentHandler;
         private readonly ILogger<VehicleRequisitionsController> _logger;
         private string[]? _graphScopes;
+        private ISectionAbbrFinder _sectionAbbrFinder;
+        private RvpAppSecurityContext _rvpAppSecurityContext;
+
         public VehicleRequisitionsController(RvpAppContext context, 
-            IHttpContextAccessor httpContextAccessor, 
+            IHttpContextAccessor httpContextAccessor,
+            RvpAppSecurityContext rvpAppSecurityContext,
             IMailService mailService,
             IConfiguration configuration,
             GraphServiceClient graphServiceClient,
             MicrosoftIdentityConsentAndConditionalAccessHandler consentHandler,
+            ISectionAbbrFinder sectionAbbrFinder,
             ILogger<VehicleRequisitionsController> logger)
         {
             _logger = logger;
@@ -57,6 +62,8 @@ namespace RowVehiclePoolMVC.Controllers
             _mailService = mailService;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _sectionAbbrFinder= sectionAbbrFinder;
+            _rvpAppSecurityContext = rvpAppSecurityContext;
             _pageInfo = httpContextAccessor.HttpContext.Session.GetObjectFromJson<PageInfo>("PageInfo");//Request.HttpContext.Session.GetObjectFromJson<PageInfo>("PageInfo");
             if (_pageInfo == null)
             {
@@ -187,52 +194,72 @@ namespace RowVehiclePoolMVC.Controllers
         }
 
         [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
-        private async Task<EmployeeInfoVM> GetEmployeeInfo(string email)
+        private async Task<EmployeeInfoVM> GetEmployeeInfo(string userPrincipalName)
         {
+            //var userPrinicalName = User.Identity.Name;
             EmployeeInfoVM employeeInfoVM = null;
             try
             {
                 IGraphServiceUsersCollectionPage users = await _graphServiceClient.Users.Request()
-                    .Filter("mail eq '" + email + "'" )
+                //var user = await _graphServiceClient.Users.Request()
+                    .Filter("mail eq '" + userPrincipalName + "'" )
                     .WithAppOnly()
-                    .Select(u => new { u.DisplayName, u.Mail, u.Id, u.EmployeeId, u.MobilePhone, u.BusinessPhones, u.Manager, u.OnPremisesExtensionAttributes })
+                    .Select(u => new
+                    {
+                        u.DisplayName,
+                        u.Mail,
+                        u.Id,
+                        u.EmployeeId,
+                        u.MobilePhone,
+                        u.BusinessPhones,
+                        u.Manager,
+                        u.OnPremisesExtensionAttributes,
+                        u.GivenName,
+                        u.Surname,
+                        u.Department,
+                        u.OfficeLocation
+                    })
                     .GetAsync();
 
-                if (users == null && users.Count > 0)
+                if (users != null && users.Count > 0)
+                //if (user != null )
                 {
                     var user = users.FirstOrDefault();
                     employeeInfoVM = new EmployeeInfoVM() {
-                        DivisionHeadEmail = await GetDivisionHeadEmail(user.OfficeLocation, user.OnPremisesExtensionAttributes.ExtensionAttribute4),
+                        DivisionHeadEmail = await GetDivisionHeadEmail(user.OnPremisesExtensionAttributes.ExtensionAttribute4),
                         EmployeeNumber = user.EmployeeId,
                         FirstName = user.GivenName,
                         LastName = user.Surname,
                         SectionDesc = user.Department ?? "",
-                        SectionId= user.Department ?? "",
-                        SectionManagerEmail = await GetSectionHeadEmail(user.OfficeLocation, user.OnPremisesExtensionAttributes.ExtensionAttribute5)
+                        SectionId= _sectionAbbrFinder.Get(user.Department) ?? "",
+                        Budget = user.OnPremisesExtensionAttributes.ExtensionAttribute4 ?? "",
+                        SectionManagerEmail = await GetSectionHeadEmail(user.Department)
                     };
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                _logger.Log(LogLevel.Error, ex.Message, ex);
+                //Console.WriteLine(ex.ToString());
                 throw;
             }
             return employeeInfoVM;
         }
  
         [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
-        private async Task<string> GetDivisionHeadEmail(string employeeOfficeLocation, string division)
+        private async Task<string> GetDivisionHeadEmail(string division)
         {
             string  divHeadEmail = null;
             try
             {
-                var users = await _graphServiceClient.Users.Request()
+                IGraphServiceUsersCollectionPage users = await _graphServiceClient.Users.Request()
                     .Filter("jobTitle eq 'division head'")
-                    .Select(u => new { u.Mail, u.OfficeLocation, u.OnPremisesExtensionAttributes.ExtensionAttribute4 })
+                    .WithAppOnly()
+                    .Select(u => new { u.Mail, u.OfficeLocation })
                     .GetAsync();
                 if(users != null && users.Count > 0)
                 {
-                    var user = users.Where(c => c.OnPremisesExtensionAttributes.ExtensionAttribute4 == division).FirstOrDefault();
+                    var user = users.Where(c => c.OfficeLocation == "Right of Way").FirstOrDefault();
                     if(user != null && user.Mail != null)
                     {
                         divHeadEmail = user.Mail;
@@ -247,21 +274,25 @@ namespace RowVehiclePoolMVC.Controllers
             return divHeadEmail;
         }
         [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
-        private async Task<string> GetSectionHeadEmail(string employeeOfficeLocation, string section)
+        private async Task<string> GetSectionHeadEmail(string section)
         {
-            string divHeadEmail = null;
+            string secHeadEmail = null;
+#if DEBUG
+            section = "Right of Way Acquisitions";
+#endif
             try
             {
-                var users = await _graphServiceClient.Users.Request()
-                    .Filter("jobTitle eq 'section head'")
-                    .Select(u => new { u.Mail, u.OnPremisesExtensionAttributes.ExtensionAttribute5 })
+                IGraphServiceUsersCollectionPage users = await _graphServiceClient.Users.Request()
+                    .Filter("(jobTitle eq 'section head' or startsWith(jobTitle,'sec head')) and department eq '"+section+"'")
+                    .WithAppOnly()
+                    .Select(u => new { u.Mail, u.OfficeLocation })
                     .GetAsync();
                 if (users != null && users.Count > 0)
                 {
-                    var user = users.Where(c => c.OnPremisesExtensionAttributes.ExtensionAttribute5 == section).FirstOrDefault();
+                    var user = users.Where(c => c.OfficeLocation == "Right of Way").FirstOrDefault();
                     if (user != null && user.Mail != null)
                     {
-                        divHeadEmail = user.Mail;
+                        secHeadEmail = user.Mail;
                     }
                 }
             }
@@ -270,13 +301,13 @@ namespace RowVehiclePoolMVC.Controllers
                 Console.WriteLine(ex.ToString());
                 throw;
             }
-            return divHeadEmail;
+            return secHeadEmail;
         }
         [AuthorizeForScopes(ScopeKeySection = "DownstreamApi:Scopes")]
         // GET: VehicleRequisitions/GetMyRequests
         public async Task<IActionResult> ViewMyRequisitions()
         {
-            var userProfiles = await GetEmployeeInfo("jessica.sisk@ardot.gov");
+            //var userProfiles = await GetEmployeeInfo("jessica.sisk@ardot.gov");
 
             var userid = Utility.GetUserId(User.Identity.Name);
             var userInfo = Utility.GetUserInfo(userid);
@@ -391,8 +422,128 @@ namespace RowVehiclePoolMVC.Controllers
             }
             return result;
         }
-        //private string GetEmployeeInfo()
-        public IActionResult RequestPoolVehicle()
+        [HttpGet]
+        public async Task<IActionResult> RequestPoolVehicle()
+        {
+            LoadRequisitionDropDowns();
+            //EmployeeInfoVM emp = await GetEmployeeInfo();
+            var vehicleRequest = new VehicleRequestVM()
+            {
+                ReqDepartDate = DateTime.Now,
+                ReqReturnDate = DateTime.Now.AddHours(8)
+            };
+            return View(vehicleRequest);
+        }
+
+        // POST: VehicleRequisitions/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RequestPoolVehicle([Bind("VehReqDate,RequestFirstName, RequestLastName,VehType,Destination,Duties,NoInParty,ReqBudget,ReqFunction,ReqJobNo,ReqFap,ReqComments,ReqDepartDate,ReqDepartTime,ReqReturnDate,ReqReturnTime,VehReqStatus,NotificationDivHead,NotificationMan,EmailAddress,LastChangeUserid")] VehicleRequestVM vehicleRequest)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var employeeId = Utility.GetUserId(vehicleRequest.EmailAddress);
+                    //if(userid == null)
+                    //{
+                    //    return View(vehicleRequest);
+                    //}
+                    var lastChangeUserId = Utility.GetUserId(User.Identity.Name);
+                    var userInfo = Utility.GetUserInfo(employeeId);
+                    var vehReqNo = await _context.VehicleRequisition.MaxAsync(c => c.VehReqNo) + 1;
+                    EmployeeInfoVM employeeInfo = await GetEmployeeInfo(vehicleRequest.EmailAddress);// Utility.GetEmployeeInfo(userInfo.EmployeeNumber, _context);
+                    var returnDate = vehicleRequest.ReqReturnDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqReturnTime));
+                    var departDate = vehicleRequest.ReqDepartDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqDepartTime));
+                    var vehicleRequisition = new VehicleRequisition()
+                    {
+                        VehReqNo = vehReqNo,
+                        Destination = vehicleRequest.Destination,
+                        Duties = vehicleRequest.Duties,
+                        EmailAddress = vehicleRequest.EmailAddress,
+                        LastChangeDate = DateTime.Now,
+                        LastChangeUserid = lastChangeUserId,
+                        NoInParty = vehicleRequest.NoInParty,
+                        NotificationDivHead = employeeInfo.DivisionHeadEmail ?? "",
+                        NotificationMan = employeeInfo.SectionManagerEmail ?? "",
+                        ReqBudget = vehicleRequest.ReqBudget,
+                        ReqComments = vehicleRequest.ReqComments ?? "",
+                        ReqDepartDate = vehicleRequest.ReqDepartDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqDepartTime)),
+                        ReqReturnDate = vehicleRequest.ReqReturnDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqReturnTime)),
+                        ReqDivision = GetDivision(),
+                        ReqFap = vehicleRequest.ReqFap ?? "",
+                        ReqFunction = vehicleRequest.ReqFunction ?? "",
+                        ReqJobNo = vehicleRequest.ReqJobNo ?? "",
+                        ReqSectionId = employeeInfo.SectionId ?? "",
+                        Requestor = vehicleRequest.RequestFirstName + " " + vehicleRequest.RequestLastName,
+                        Userid = employeeId,
+                        VehReqDate = DateTime.Now,
+                        VehReqStatus = "P",
+                        VehType = vehicleRequest.VehType ?? "car",
+                    };
+                    try
+                    {
+                        _context.Add(vehicleRequisition);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(LogLevel.Error ,ex.Message);
+                    }
+                    var dhnf = employeeInfo.DivisionHeadEmail != "Not Found" ? false : true;
+                    var smnf = employeeInfo.SectionManagerEmail != "Not Found" ? false : true;
+                    var mailRequest = new MailRequest()
+                    {
+                        Attachments = null,
+                        Body = CreateRequestEmailMessage(vehicleRequisition, dhnf, smnf),
+                        Subject = vehicleRequisition.Requestor + " has requested a vehicle",
+                        From = vehicleRequest.EmailAddress,
+                        To = GetEmailRecipients(),
+                    };
+#if DEBUG
+mailRequest.To = "richard.harris@ardot.gov";
+#endif
+                    //send to approvers
+                    try
+                    {
+                        await _mailService.SendEmailAsync(mailRequest);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(LogLevel.Error, "Email Failed - " + ex.Message);
+                    }
+
+                    //send to Section Head
+                    if (!smnf)
+                    {
+                        mailRequest.To = employeeInfo.SectionManagerEmail;
+#if DEBUG
+mailRequest.To = "richard.harris@ardot.gov";
+#endif
+                        try
+                        {
+                            await _mailService.SendEmailAsync(mailRequest);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.Log(LogLevel.Error, "Email Failed - " + ex.Message);
+                        }
+                    }
+
+                    return RedirectToAction("VehicleRequestSaved", new { vehReqNo = vehReqNo });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            LoadRequisitionDropDowns();
+            return View(vehicleRequest);
+        }
+
+        private void LoadRequisitionDropDowns()
         {
             List<string> budgetList = null;
             var contextOptions = new DbContextOptionsBuilder<RvpAppBudContext>()
@@ -401,17 +552,13 @@ namespace RowVehiclePoolMVC.Controllers
 
             using (var budContext = new RvpAppBudContext(contextOptions))
             {
-                budgetList = budContext.T101BudgetInf.Where(c => c.PayrEndDate == null && c.PahrBudget == "Y").Select(c => c.Budget).ToList();
+                budgetList = budContext.T101BudgetInf.Where(c => c.PayrEndDate == null && c.PahrBudget == "Y").Select(c => c.Budget)?.ToList();
             }
 
             ViewBag.Budget = budgetList;
             ViewBag.VehicleType = new List<string>() { "Car", "Pickup" };
             ViewBag.RequestStatuses = new List<ItemList>() {new ItemList{Value="P",Text = "Pending" }
                                 ,new ItemList{Value="C", Text="Cancelled" }, new ItemList{Value="A",Text="Assigned" } };
-            var vehicleRequest = new VehicleRequestVM() {
-                ReqDepartDate = DateTime.Now,
-                ReqReturnDate = DateTime.Now.AddHours(8)
-            };
             ViewBag.TimeOfDayVals = new List<SelectListItem>()
             {
                  new SelectListItem(){Text="Early",   Value="07:29:00"}
@@ -437,78 +584,29 @@ namespace RowVehiclePoolMVC.Controllers
                 ,new SelectListItem(){Text="Late",Value="16:31:00"}
             };
 
-            return View(vehicleRequest);
         }
 
-        // POST: VehicleRequisitions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RequestPoolVehicle([Bind("VehReqDate,RequestFirstName, RequestLastName,VehType,Destination,Duties,NoInParty,ReqBudget,ReqFunction,ReqJobNo,ReqFap,ReqComments,ReqDepartDate,ReqDepartTime,ReqReturnDate,ReqReturnTime,VehReqStatus,NotificationDivHead,NotificationMan,EmailAddress,LastChangeUserid")] VehicleRequestVM vehicleRequest)
+        public String GetEmailRecipients()
         {
+            String returnString = null;
             try
             {
-                if (ModelState.IsValid)
+                var userIdList = _rvpAppSecurityContext.SystemSec.Where(c => c.ReceiveMail.ToUpper() == "Y" && c.SystemId == "WRVP").Select(c => c.Userid.Trim()).Distinct().ToList();
+                if (userIdList != null && userIdList.Count > 0)
                 {
-                    var userid = Utility.GetUserId(vehicleRequest.EmailAddress);
-                    var lastChangeUserId = Utility.GetUserId(User.Identity.Name);
-                    var userInfo = Utility.GetUserInfo(userid);
-                    var vehReqNo = await _context.VehicleRequisition.MaxAsync(c => c.VehReqNo) + 1;
-                    EmployeeInfoVM employeeInfo = Utility.GetEmployeeInfo(userInfo.EmployeeNumber, _context);
-                    var returnDate = vehicleRequest.ReqReturnDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqReturnTime));
-                    var departDate = vehicleRequest.ReqDepartDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqDepartTime));
-                    var vehicleRequisition = new VehicleRequisition()
+                    foreach (var userId in userIdList)
                     {
-                        VehReqNo = vehReqNo,
-                        Destination = vehicleRequest.Destination,
-                        Duties = vehicleRequest.Duties,
-                        EmailAddress = vehicleRequest.EmailAddress,
-                        LastChangeDate = DateTime.Now,
-                        LastChangeUserid = lastChangeUserId,
-                        NoInParty = vehicleRequest.NoInParty,
-                        NotificationDivHead = employeeInfo.DivisionHeadEmail,
-                        NotificationMan = employeeInfo.SectionManagerEmail,
-                        ReqBudget = vehicleRequest.ReqBudget,
-                        ReqComments = vehicleRequest.ReqComments ?? "",
-                        ReqDepartDate = vehicleRequest.ReqDepartDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqDepartTime)),
-                        ReqReturnDate = vehicleRequest.ReqReturnDate.Date.Add(TimeSpan.Parse(vehicleRequest.ReqReturnTime)),
-                        ReqDivision = GetDivision(),
-                        ReqFap = vehicleRequest.ReqFap ?? "",
-                        ReqFunction = vehicleRequest.ReqFunction ?? "",
-                        ReqJobNo = vehicleRequest.ReqJobNo ?? "",
-                        ReqSectionId = employeeInfo.SectionId ?? "",
-                        Requestor = vehicleRequest.RequestFirstName + " " + vehicleRequest.RequestLastName,
-                        Userid = userid,
-                        VehReqDate = DateTime.Now,
-                        VehReqStatus = "P",
-                        VehType = vehicleRequest.VehType,
-                    };
-                    _context.Add(vehicleRequisition);
-                    await _context.SaveChangesAsync();
-                    var dhnf = employeeInfo.DivisionHeadEmail != "Not Found" ? false : true;
-                    var smnf = employeeInfo.SectionManagerEmail != "Not Found" ? false : true;
-                    var mailRequest = new MailRequest()
-                    {
-                        Attachments = null,
-                        Body = CreateRequestEmailMessage(vehicleRequisition, dhnf, smnf),
-                        Subject = vehicleRequisition.Requestor + " has requested a vehicle",
-                        From = vehicleRequest.EmailAddress,
-                        To = Utility.GetEmailRecipients()
-                    };
-
-                    await _mailService.SendEmailAsync(mailRequest);
-
-                    return RedirectToAction("VehicleRequestSaved", new { vehReqNo = vehReqNo });
+                        returnString = returnString + Utility.GetEmailAddress(userId).Trim() + ";";
+                    }
+                    returnString = returnString.Substring(0, returnString.Length - 1);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Mail RecipientList Failed: {0}", ex.Message);
             }
-            return View(vehicleRequest);
+            return returnString;
         }
-
         public IActionResult VehicleRequestSaved(int vehReqNo)
         {
             var requisition = _context.VehicleRequisition.Where(c=>c.VehReqNo== vehReqNo).FirstOrDefault();

@@ -44,6 +44,7 @@ namespace RowVehiclePoolMVC.ViewModels
         [StringLength(50)]
         [Display(Name = "Last Name")]
         public string RequestLastName { get; set; }
+        [Required]
         [StringLength(50)]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email Address")]
@@ -61,6 +62,7 @@ namespace RowVehiclePoolMVC.ViewModels
         [Required]
         [StringLength(50)]
         public string Duties { get; set; }
+        [Required]
         [Column(TypeName = "Integer")]
         [DisplayFormat(DataFormatString ="{0:n0}")]
         [Display(Name ="Number in Party")]

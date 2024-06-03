@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using System.Security.Claims;
 using Microsoft.Identity.Abstractions;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using RowVehiclePoolMVC.Models;
 
 namespace RowVehiclePoolMVC
 {
@@ -36,10 +37,10 @@ namespace RowVehiclePoolMVC
             //services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
             //services.AddMicrosoftIdentityWebAppAuthentication(Configuration, "ROWVPAzureAD");
             services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(Configuration.GetSection("ROWVPAzureAD"))
-                .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-                .AddMicrosoftGraph(Configuration.GetSection("DownstreamApi"))
-                .AddInMemoryTokenCaches();
+                    .AddMicrosoftIdentityWebApp(Configuration.GetSection("ROWVPAzureAD"))
+                    .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+                    .AddMicrosoftGraph(Configuration.GetSection("DownstreamApi"))
+                    .AddInMemoryTokenCaches();
             services.AddServerSideBlazor().AddMicrosoftIdentityConsentHandler();
             //services.AddAuthorization(options => { options.FallbackPolicy = options.DefaultPolicy; });
             services.AddDistributedMemoryCache(); // <- This service
@@ -55,6 +56,7 @@ namespace RowVehiclePoolMVC
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
             services.AddSession();
+            services.AddScoped<ISectionAbbrFinder, SectionAbbrFinder>();
             services.AddDbContext<RvpAppContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ROWVehiclePool_ConnectionString")));
             services.AddDbContext<RvpAppBudContext>(options =>
@@ -63,9 +65,9 @@ namespace RowVehiclePoolMVC
                 options.UseSqlServer(Configuration.GetConnectionString("Equipment_ConnectionString")));
             services.AddDbContext<RvpAppAlltContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Allotments_ConnectionString")));
-            //services.AddDbContext<RvpAppSecurityContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("Security_ConnectionString")));
-            //services.AddControllersWithViews();
+            services.AddDbContext<RvpAppSecurityContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Security_ConnectionString")));
+            services.AddControllersWithViews();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("User", p =>
@@ -106,7 +108,6 @@ namespace RowVehiclePoolMVC
 
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.UseEndpoints(endpoints =>
             {

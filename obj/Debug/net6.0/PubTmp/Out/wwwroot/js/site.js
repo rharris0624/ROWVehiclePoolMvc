@@ -11,6 +11,10 @@
             $("#EmailAddress").val("@ardot.gov");
 }
 
+function upperCase(strElement) {
+    strElement.value = strElement.value.toUpperCase()
+}
+
 $(document).ready(function () {
 
     $.validator.addMethod("validReturnDate", function (value, element) {

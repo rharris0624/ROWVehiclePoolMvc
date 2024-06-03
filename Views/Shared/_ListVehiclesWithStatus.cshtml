@@ -1,0 +1,104 @@
+﻿@model IEnumerable<RowVehiclePoolMVC.Models.Vehicle>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TagNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OwnerBudget)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            @if (item.Status == "i")
+            {
+                <tr style="background-color:lightgrey">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TagNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Make)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mileage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerBudget)
+                    </td>
+                    <td>
+                        <button onclick="ChangeVehicleStatusClick(event)" id="@item.TagNumber">ReActivate</button>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr style="background-color:white">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TagNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Make)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Model)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mileage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OwnerBudget)
+                    </td>
+                    <td>
+                        <button onclick="ChangeVehicleStatusClick(event)" id="@item.TagNumber">DeActivate</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

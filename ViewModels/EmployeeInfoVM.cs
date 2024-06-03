@@ -16,5 +16,6 @@ namespace RowVehiclePoolMVC.ViewModels
         public string SectionManagerFirstName { get; set; }
         public string SectionManagerLastName { get; set; }
         public string DivisionHeadEmail { get; set; }
+        public string Budget { get; set; }
     }
 }

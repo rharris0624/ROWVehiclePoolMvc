@@ -24,8 +24,8 @@
                         <img src="~/Images/vehiclepool_18.gif" class="flex-lg-fill" alt="View Your Requisitions" id="vehiclepool_18">
                     </a>
                 </div>
-           @* @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
-                {*@
+                @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)//(User.IsInRole("Requestors"))
+                {
                 <div class="row">
                     <a asp-controller="VehicleRequisitions" asp-action="ViewAllRequisitions"
                        onmouseover="changeImages('vehiclepool_28','@Url.Content("~/Images/vehiclepool_28-over.gif")'); return true;"
@@ -33,7 +33,7 @@
                         <img src="~/Images/vehiclepool_28.gif" class="flex-lg-fill" alt="Browse All Requisitions" id="vehiclepool_28">
                     </a>
                 </div>
-                @*}*@
+                }
                 <div class="row">
                     <a asp-controller="Vehicle" asp-action="Weekly"
                        onmouseover="changeImages('vehiclepool_38','@Url.Content("~/Images/vehiclepool_38-over.gif")'); return true;"
@@ -48,8 +48,8 @@
         </div>
     </div>
     <div class="row">
-       @* @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
-        {*@
+        @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)//(User.IsInRole("Requestors"))
+        {
         <div class="col-md-2">
             <a asp-controller="Vehicle" asp-action="AddVehicle" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_45','@Url.Content("~/Images/vehiclepool_45-over.gif")'); return true;"
@@ -57,13 +57,13 @@
                 <img src="~/Images/vehiclepool_45.gif" class="flex-lg-fill" alt="Add Vehicle" id="vehiclepool_45">
             </a>
         </div>
-        <div class="col-md-2">
+        @*<div class="col-md-2">
             <a asp-controller="VehicleRequisitions" asp-action="DeleteVehicle" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_47','@Url.Content("~/Images/vehiclepool_47-over.gif")'); return true;"
                onmouseout="changeImages('vehiclepool_47', '@Url.Content("~/Images/vehiclepool_47.gif")'); return true;">
                 <img src="~/Images/vehiclepool_47.gif" class="flex-lg-fill" alt="Delete Vehicle" id="vehiclepool_47">
             </a>
-        </div>
+        </div>*@
             <div class="col-md-2">
                 <a asp-controller="VehicleRequisitions" asp-action="VehicleAssign" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_49','@Url.Content("~/Images/vehiclepool_49-over.gif")'); return true;"
@@ -79,7 +79,7 @@
             </a>
         </div>
             <div class="col-md-2">
-                <a asp-controller="VehicleRequisitions" asp-action="DeactivateVehicle" class="p-xl-3"
+                <a asp-controller="Vehicle" asp-action="SetVehicleStatus" class="p-xl-3"
                onmouseover="changeImages('vehiclepool_52','@Url.Content("~/Images/vehiclepool_52-over.gif")'); return true;"
                onmouseout="changeImages('vehiclepool_52', '@Url.Content("~/Images/vehiclepool_52.gif")'); return true;">
                     <img src="~/Images/vehiclepool_52.gif" class="flex-lg-fill" alt="Deactiveate Vehicle" id="vehiclepool_52">
@@ -92,7 +92,7 @@
                 <img src="~/Images/DeleteReq.gif" class="flex-lg-fill" alt="Delete Requestors" id="DeleteReq">
             </a>
         </div>
-        @*}*@
+        }
     </div>
 </div>
 <div class="text-center">

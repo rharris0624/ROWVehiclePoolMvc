@@ -1,0 +1,80 @@
+﻿@model SetVehicleStatusVM
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Vehicle Status Change</h4>
+<hr />
+
+<form class="container" id="f1" asp-action="VehicleSearchWithStatus">
+    <div class="table">
+        @{
+            var ndx = 0;
+        }
+        @foreach(var item in @Model.SearchTypes)
+        {
+            <div class="row">
+                <input type="radio" asp-for="SearchTypeSelected" value="@item.Key" />@item.Value <nbsp></nbsp>
+            </div>
+            @if(ndx == 0)
+            {
+                <select class="col col-12 form-control form-select" asp-for="@Model.TagNumber" asp-items="ViewBag.TagNumbers"></select>
+            }
+            else
+            {
+                <select class="col col-12 form-control form-select" asp-for="@Model.Budget" asp-items="ViewBag.Budgets"></select>
+            }
+            ndx++;
+        }
+        </div>
+    </div>
+    <br />
+    <button type="submit" value="submit" style="align-content: center" @*onclick="filterSearchList()"*@>Search</button>
+</form>
+
+<div class="col" rowspan="8" id="VehicleListPartial">
+    <partial name="_ListVehiclesWithStatus" model="@Model.Vehicles"/>
+</div>
+
+
+<a asp-controller="Home" asp-action="Index">Home</a>
+@section scripts{
+    <script type="text/javascript">
+            function filterSearchList(){
+                var searchType = document.getElementById("SearchTypeSelected").value
+                var queryString = ""
+                if(searchType === "Tag")
+                    queryString = "tagNumber="+document.getElementById("TagNumber").value
+                else
+                    queryString = "ownerBudget="+document.getElementById("Budget").value
+                $.ajax({
+                    url: '@Url.Action("FilterVehicleSearch","Vehicle")?' + queryString,
+                    type: "POST",  
+                    async: true,
+                })
+            }
+            var DisplayAllVehicles = function(){
+                $.ajax({
+                    url: '@Url.Action("ListVehiclesWithStatus")',
+                    type: "Get",
+                    async: "true"
+                })
+                .done(function (partialViewResult) {
+                    $("#_ListVehiclesWithStatus").html(partialViewResult);
+                 })
+            }
+            function ChangeVehicleStatusClick(event){
+                var id = event.currentTarget.id
+                $.ajax({
+                    url: '@Url.Action("ChangeVehicleStatus","Vehicle")?tagNumber='+id,
+                    type: "POST",
+                    async: true,
+                })
+                .done(function (partialViewResult) {
+                   $("#VehicleListPartial").html(partialViewResult)
+                })
+            }
+    </script>
+}
