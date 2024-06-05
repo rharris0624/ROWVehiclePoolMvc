@@ -1,0 +1,148 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+input [type=radio] {
+    width: 20px;
+    padding: 4px 7px 2px 4px;
+    background-color: bisque;
+}
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.bottom-three {
+    margin-bottom: 3cm;
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.disable-link {
+    pointer-events: none;
+}
+
+.tab {
+    padding:7px;
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px; 
+  width: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+.btn-job:hover{
+    background-color: rgb(66, 2, 41);
+    color: rgb(119, 255, 0);
+}
+
+.row-height {
+    height: 800vh;
+    max-height: 800px;
+}
+
+/*Set up the columns with a 100% height, body color and overflow scroll*/
+
+.left {
+    background-color: white;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.right {
+    background-color: white;
+    height: 100%;
+    overflow-y: scroll;
+}
+.content {
+    background: #ccc;
+    height: fit-content;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.mid {
+    background-color: green;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+/*Remove the scrollbar from Chrome, Safari, Edge and IE*/
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+.form-grid{
+    border: 1px solid black;
+    border-color: #fff;
+}
+
+* {
+    -ms-overflow-style: none !important;
+}
+
+.link-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    /*optional*/
+    font-family: arial, sans-serif;
+    /*input has OS specific font-family*/
+    color: #069;
+    text-decoration: underline;
+    cursor: pointer;
+}

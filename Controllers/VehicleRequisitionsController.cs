@@ -217,7 +217,8 @@ namespace RowVehiclePoolMVC.Controllers
                         u.GivenName,
                         u.Surname,
                         u.Department,
-                        u.OfficeLocation
+                        u.OfficeLocation,
+                        u.JobTitle
                     })
                     .GetAsync();
 
@@ -226,14 +227,14 @@ namespace RowVehiclePoolMVC.Controllers
                 {
                     var user = users.FirstOrDefault();
                     employeeInfoVM = new EmployeeInfoVM() {
-                        DivisionHeadEmail = await GetDivisionHeadEmail(user.OnPremisesExtensionAttributes.ExtensionAttribute4),
+                        DivisionHeadEmail = user.OfficeLocation != null ? await GetDivisionHeadEmail(user.OfficeLocation) : "",
                         EmployeeNumber = user.EmployeeId,
                         FirstName = user.GivenName,
                         LastName = user.Surname,
                         SectionDesc = user.Department ?? "",
-                        SectionId= _sectionAbbrFinder.Get(user.Department) ?? "",
+                        SectionId= user.Department != null ? _sectionAbbrFinder.Get(user.Department) ?? "" : "",
                         Budget = user.OnPremisesExtensionAttributes.ExtensionAttribute4 ?? "",
-                        SectionManagerEmail = await GetSectionHeadEmail(user.Department)
+                        SectionManagerEmail = user.JobTitle == "Section Head" || string.IsNullOrEmpty(user.JobTitle) ? "" : await GetSectionHeadEmail(user.Department)
                     };
                 }
             }

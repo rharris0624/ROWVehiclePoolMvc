@@ -1,0 +1,20 @@
+BODY
+{
+}
+TD, .dbox
+{
+    FONT-WEIGHT: bolder;
+    COLOR: black;
+    border: 1px solid black;
+}
+A:hover
+{
+    COLOR: white;
+    BACKGROUND-COLOR: darkblue;
+    TEXT-DECORATION: none
+}
+A
+{
+    COLOR: orange;
+    TEXT-DECORATION: none
+}

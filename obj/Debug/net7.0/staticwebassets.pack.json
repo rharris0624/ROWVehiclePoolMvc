@@ -1,0 +1,373 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\DeleteReq.gif",
+      "PackagePath": "staticwebassets\\Images\\DeleteReq.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\DeleteReqover.gif",
+      "PackagePath": "staticwebassets\\Images\\DeleteReqover.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\VehiclePool1.jpg",
+      "PackagePath": "staticwebassets\\Images\\VehiclePool1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\ahtdnet_orange.jpg",
+      "PackagePath": "staticwebassets\\Images\\ahtdnet_orange.jpg"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\first.gif",
+      "PackagePath": "staticwebassets\\Images\\first.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\home_orange.jpg",
+      "PackagePath": "staticwebassets\\Images\\home_orange.jpg"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\last.gif",
+      "PackagePath": "staticwebassets\\Images\\last.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\next.gif",
+      "PackagePath": "staticwebassets\\Images\\next.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\prev.gif",
+      "PackagePath": "staticwebassets\\Images\\prev.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool.jpg",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool.jpg"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_08-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_08-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_08.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_08.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_18-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_18-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_18.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_18.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_28-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_28-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_28.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_28.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_38-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_38-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_38.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_38.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_45-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_45-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_45.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_45.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_47-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_47-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_47.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_47.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_49-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_49-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_49.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_49.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_51-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_51-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_51.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_51.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_52-over.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_52-over.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\Images\\vehiclepool_52.gif",
+      "PackagePath": "staticwebassets\\Images\\vehiclepool_52.gif"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\css\\tooltip.css",
+      "PackagePath": "staticwebassets\\css\\tooltip.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\css\\vehiclepool.css",
+      "PackagePath": "staticwebassets\\css\\vehiclepool.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\js\\dayinmonth.js",
+      "PackagePath": "staticwebassets\\js\\dayinmonth.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\js\\tooltip-side.js",
+      "PackagePath": "staticwebassets\\js\\tooltip-side.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\js\\tooltip.js",
+      "PackagePath": "staticwebassets\\js\\tooltip.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\AUTHORS.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\AUTHORS.txt"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\external\\jquery\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\external\\jquery\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_444444_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_444444_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_555555_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_555555_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_777620_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_777620_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_777777_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_777777_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_cc0000_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_cc0000_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\images\\ui-icons_ffffff_256x240.png",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\images\\ui-icons_ffffff_256x240.png"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\index.html",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.min.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.structure.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.structure.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.structure.min.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.structure.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.theme.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.theme.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\jquery-ui.theme.min.css",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\jquery-ui.theme.min.css"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-ui\\package.json",
+      "PackagePath": "staticwebassets\\lib\\jquery-ui\\package.json"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "C:\\Users\\rh41200\\source\\repos\\ROWVehiclePoolMvc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.RowVehiclePoolMVC.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.RowVehiclePoolMVC.props",
+      "PackagePath": "build\\RowVehiclePoolMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.RowVehiclePoolMVC.props",
+      "PackagePath": "buildMultiTargeting\\RowVehiclePoolMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.RowVehiclePoolMVC.props",
+      "PackagePath": "buildTransitive\\RowVehiclePoolMVC.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

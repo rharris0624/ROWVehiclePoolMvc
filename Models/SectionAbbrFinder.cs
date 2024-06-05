@@ -7,6 +7,7 @@ namespace RowVehiclePoolMVC.Models
         private Dictionary<string, string> _sectionAbbreviations = new Dictionary<string, string>()
         {
             {"Right of Way Admin" ,"RWAD"},
+            {"Right Of Way Admin" ,"RWAD"},
             {"Administrative Office","RWAM"},
             {"Right of Way Appraisals" ,"RWAP"},
             {"Right of Way Acquisitions" ,"RWAQ"},
