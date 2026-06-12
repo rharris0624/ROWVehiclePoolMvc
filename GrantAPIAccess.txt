@@ -1,0 +1,28 @@
+$permsJson = az ad sp show --id $apiApplicationId --query 'oauth2Permissions[].{Value:value, Id:id, UserConsentDisplayName:userConsentDisplayName}' -o json
+$permsHash = $permsJson | ConvertFrom-Json
+$permId = $permsHash.Id  #in my case that app only had one permission, you may need to do differently
+
+$apiObjectId = az ad app show --id $apiApplicationId --query objectId
+
+          az rest  `
+            --method PATCH `
+            --uri "https://graph.microsoft.com/v1.0/applications/$apiObjectId" `
+            --headers 'Content-Type=application/json' `
+            --body "{api:{preAuthorizedApplications:[{appId:'$preAuthedAppApplicationId',delegatedPermissionIds:['$permId']}]}}"
+			
+			
+			
+az rest --method patch --uri "https://graph.microsoft.com/beta/applications/ba0f1c6d-3a22-48cd-ac98-db77b69c3c04" --headers '{"Content-Type":"application/json"}' --body '{"api":{"preAuthorizedApplications":[{"appId":"dc166b80-b027-476a-989d-f5d0def04b47","permissionIds":["ef86263e-2743-45b3-be94-0a1e64d57a09"]}]}}'
+
+
+az rest --method patch --uri "https://graph.microsoft.com/beta/applications/ba0f1c6d-3a22-48cd-ac98-db77b69c3c04" --headers '{"Content-Type":"application/json"}' `
+--body '{
+			"api":{
+				"preAuthorizedApplications":[
+					{
+						"appId":"dc166b80-b027-476a-989d-f5d0def04b47",
+						"permissionIds":["ef86263e-2743-45b3-be94-0a1e64d57a09"]
+					}
+				]
+			}
+		}'

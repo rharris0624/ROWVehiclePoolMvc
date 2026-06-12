@@ -1,6 +1,4 @@
-﻿//using MailKit.Net.Smtp;
-//using MailKit.Security;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MimeKit;
 using RowVehiclePoolMVC.Settings;
 using System.IO;
